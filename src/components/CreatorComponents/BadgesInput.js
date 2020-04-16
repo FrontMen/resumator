@@ -51,7 +51,7 @@ const BadgesInput = ({ name }) => {
               ref={register}
             >
               {badgeOptions
-                .filter((opt) => isAvailable(opt, index))
+                .filter((option) => isAvailable(option, index))
                 .map((option) => (
                   <option key={option}>{option}</option>
                 ))}
