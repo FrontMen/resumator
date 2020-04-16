@@ -7,25 +7,33 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { MoveControls } from "../FormComponents";
 
+// TODO: these options should probably be more dynamic
 const badgeOptions = [
-  { key: "angular", label: "Angular" },
-  { key: "backbone", label: "BackBone" },
-  { key: "css3", label: "CSS3" },
-  { key: "ember", label: "Ember" },
-  { key: "html5", label: "HTML 5" },
-  { key: "nodejs", label: "Node JS" },
-  { key: "webpack", label: "Webpack" },
-  { key: "javascript", label: "JavaScript" },
-  { key: "typescript", label: "TypeScript" },
-  { key: "react", label: "React" },
+  "Angular",
+  "BackBone",
+  "CSS3",
+  "Ember",
+  "HTML 5",
+  "Node JS",
+  "Webpack",
+  "JavaScript",
+  "TypeScript",
+  "React",
 ];
 
 const BadgesInput = ({ name }) => {
-  const { control, register } = useFormContext();
+  const { control, register, watch } = useFormContext();
   const { fields, append, remove, swap } = useFieldArray({
     control,
     name,
   });
+
+  const currentValues = watch("badges");
+
+  const isAvailable = (option, index) => {
+    if (!currentValues || !currentValues.length) return true;
+    return currentValues[index] === option || !currentValues.includes(option);
+  };
 
   return (
     <>
@@ -38,14 +46,15 @@ const BadgesInput = ({ name }) => {
         >
           <Box width="100%" mr={1}>
             <Select
-              id={`${name}[${index}].name`}
-              name={`${name}[${index}].name`}
-              defaultValue="United States"
+              id={`${name}[${index}]`}
+              name={`${name}[${index}]`}
               ref={register}
             >
-              {badgeOptions.map(({ key, label }) => (
-                <option key={key}>{label}</option>
-              ))}
+              {badgeOptions
+                .filter((opt) => isAvailable(opt, index))
+                .map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
             </Select>
           </Box>
 
@@ -60,8 +69,14 @@ const BadgesInput = ({ name }) => {
         </Flex>
       ))}
 
-      <Button onClick={() => append({ name: "" })} variant="outline" color="white">
-        <Icon icon={faPlus} size="sm" /> "Add badge"
+      <Button
+        onClick={() => append({ name: "" })}
+        variant="outline"
+        color="white"
+        type="button"
+      >
+        <Icon icon={faPlus} size="sm" />
+        Add badge
       </Button>
     </>
   );
