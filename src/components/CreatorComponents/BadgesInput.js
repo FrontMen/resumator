@@ -1,11 +1,7 @@
 import React from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { Box, Button, Flex } from "rebass";
-import { Select } from "@rebass/forms";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-import { MoveControls } from "../FormComponents";
+import { useFormContext } from "react-hook-form";
+import { Box, Flex } from "rebass";
+import { Checkbox, Label } from "@rebass/forms";
 
 // TODO: these options should probably be more dynamic
 const badgeOptions = [
@@ -22,63 +18,23 @@ const badgeOptions = [
 ];
 
 const BadgesInput = ({ name }) => {
-  const { control, register, watch } = useFormContext();
-  const { fields, append, remove, swap } = useFieldArray({
-    control,
-    name,
-  });
-
-  const currentValues = watch("badges");
-
-  const isAvailable = (option, index) => {
-    if (!currentValues || !currentValues.length) return true;
-    return currentValues[index] === option || !currentValues.includes(option);
-  };
+  const { register } = useFormContext();
 
   return (
-    <>
-      {fields.map((item, index) => (
-        <Flex
-          mb={2}
-          key={item.id}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Box width="100%" mr={1}>
-            <Select
-              id={`${name}[${index}]`}
-              name={`${name}[${index}]`}
+    <Flex direction="row" flexWrap="wrap">
+      {badgeOptions.map((option) => (
+        <Box key={option} width={1 / 4}>
+          <Label>
+            <Checkbox
+              id={`${name}.${option}`}
+              name={`${name}.${option}`}
               ref={register}
-            >
-              {badgeOptions
-                .filter((option) => isAvailable(option, index))
-                .map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-            </Select>
-          </Box>
-
-          <Box flexShrink={0}>
-            <MoveControls
-              index={index}
-              fields={fields}
-              remove={remove}
-              swap={swap}
             />
-          </Box>
-        </Flex>
+            {option}
+          </Label>
+        </Box>
       ))}
-
-      <Button
-        onClick={() => append({ name: "" })}
-        variant="outline"
-        color="white"
-        type="button"
-      >
-        <Icon icon={faPlus} size="sm" />
-        Add badge
-      </Button>
-    </>
+    </Flex>
   );
 };
 
