@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 export const MIN_NUMBER_OF_EXPERIENCE = 1;
 export const MIN_NUMBER_OF_EDUCATION = 1;
+export const MAX_LENGTH_EDUCATION_DESC = 400;
 
 yup.setLocale({
   mixed: {
@@ -24,7 +25,7 @@ const experienceSchema = yup.object().shape({
   role: yup.string().required(),
   startDate: yup.date().required(),
   endDate: yup.string(), // FIXME: should be date format (see: https://github.com/jquense/yup/issues/764)
-  description: yup.string().required().max(400),
+  description: yup.string().required().max(MAX_LENGTH_EDUCATION_DESC),
   stackAndTechniques: yup.array().min(1).of(skillOrStackSchema),
 });
 

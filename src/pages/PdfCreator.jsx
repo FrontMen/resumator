@@ -15,7 +15,11 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
+import validationSchema, {
+  MIN_NUMBER_OF_EXPERIENCE,
+  MAX_LENGTH_EDUCATION_DESC,
+} from "../config/validation";
+
 import {
   AvatarInput,
   EducationInput,
@@ -84,7 +88,11 @@ const PdfCreator = () => {
           </FormField>
 
           <FormField name="introduction" label="Introduction" required>
-            <Textarea name="introduction" ref={methods.register()} />
+            <Textarea
+              name="introduction"
+              ref={methods.register()}
+              maxLength={MAX_LENGTH_EDUCATION_DESC}
+            />
           </FormField>
         </FormGroup>
 
