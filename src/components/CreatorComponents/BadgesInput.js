@@ -26,9 +26,11 @@ const BadgesInput = ({ name }) => {
         <Box key={option} width={1 / 4}>
           <Label>
             <Checkbox
-              id={`${name}.${option}`}
-              name={`${name}.${option}`}
-              ref={register}
+              as="input"
+              type="checkbox"
+              name={`${name}`}
+              ref={register()}
+              value={option}
             />
             {option}
           </Label>
