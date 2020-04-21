@@ -31,13 +31,32 @@ import {
 
 const PdfCreator = () => {
   const { firebase } = useContext(FirebaseAppContext);
+
+  const getInitialValues = (values) => {
+    const badges = values.badges || [];
+
+    return {
+      ...values,
+      badges: badges.map((x) => x.name),
+    };
+  };
+
+  const getDataToStore = (data) => {
+    const badges = data.badges || [];
+
+    return {
+      ...data,
+      badges: badges.map((x) => ({ name: x })),
+    };
+  };
+
   const methods = useForm({
-    defaultValues: { ...resumeMock },
+    defaultValues: { ...getInitialValues(resumeMock) },
     validationSchema,
   });
 
   const onSubmit = (data) => {
-    firebase.firestore().collection("resumes").doc().set(data);
+    firebase.firestore().collection("resumes").doc().set(getDataToStore(data));
   };
 
   return (

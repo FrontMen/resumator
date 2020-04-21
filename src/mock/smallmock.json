@@ -22,7 +22,7 @@
       "name": "React"
     }
   ],
-  "badges": ["Angular", "React"],
+  "badges": [{ "name": "Angular" }, { "name": "React" }],
   "openSourceWork": [
     {
       "id": "1",
