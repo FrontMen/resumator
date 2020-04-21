@@ -45,15 +45,15 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
             </Box>
           </Flex>
 
-          <FormField name={`${name}[${index}].company`} label="Company">
+          <FormField name={`${name}[${index}].company`} label="Company" required>
             <Input name={`${name}[${index}].company`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}].role]`} label="Role">
+          <FormField name={`${name}[${index}].role]`} label="Role" required>
             <Input name={`${name}[${index}].role`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}.startDate`} label="Start date">
+          <FormField name={`${name}[${index}.startDate`} label="Start date" required>
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
@@ -65,7 +65,11 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
             <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}.description`} label="Description">
+          <FormField
+            name={`${name}[${index}.description`}
+            label="Description"
+            required
+          >
             <Textarea name={`${name}[${index}].description`} ref={register()} />
           </FormField>
 

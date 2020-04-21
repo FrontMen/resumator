@@ -37,6 +37,7 @@ const PdfCreator = () => {
   });
 
   const onSubmit = (data) => {
+    console.log(data); // eslint-disable-line
     firebase.firestore().collection("resumes").doc().set(data);
   };
 
@@ -58,19 +59,19 @@ const PdfCreator = () => {
             <Icon icon={faAddressCard} size="sm" /> Personal details
           </Heading>
 
-          <FormField name="personalia.email" label="First name">
+          <FormField name="personalia.email" label="Email" required>
             <Input name="personalia.email" type="email" ref={methods.register()} />
           </FormField>
 
-          <FormField name="personalia.firstName" label="First name">
+          <FormField name="personalia.firstName" label="First name" required>
             <Input name="personalia.firstName" ref={methods.register()} />
           </FormField>
 
-          <FormField name="personalia.lastName" label="Last name">
+          <FormField name="personalia.lastName" label="Last name" required>
             <Input name="personalia.lastName" ref={methods.register()} />
           </FormField>
 
-          <FormField name="personalia.dateOfBirth" label="Birth date">
+          <FormField name="personalia.dateOfBirth" label="Birth date" required>
             <Input
               name="personalia.dateOfBirth"
               type="date"
@@ -78,11 +79,11 @@ const PdfCreator = () => {
             />
           </FormField>
 
-          <FormField name="personalia.city" label="City">
+          <FormField name="personalia.city" label="City" required>
             <Input name="personalia.city" ref={methods.register()} />
           </FormField>
 
-          <FormField name="introduction" label="Introduction">
+          <FormField name="introduction" label="Introduction" required>
             <Textarea name="introduction" ref={methods.register()} />
           </FormField>
         </FormGroup>
