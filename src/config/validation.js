@@ -23,8 +23,8 @@ const experienceSchema = yup.object().shape({
   company: yup.string().required(),
   role: yup.string().required(),
   startDate: yup.date().required(),
-  endDate: yup.date().required(),
-  description: yup.string().required().max(250),
+  endDate: yup.string(), // FIXME: should be date format (see: https://github.com/jquense/yup/issues/764)
+  description: yup.string().required().max(400),
   stackAndTechniques: yup.array().min(1).of(skillOrStackSchema),
 });
 
@@ -36,7 +36,7 @@ export default yup.object().shape({
     dateOfBirth: yup.date().required(),
     city: yup.string().required(),
   }),
-  introduction: yup.string().required().max(250),
+  introduction: yup.string().required().max(400),
   experience: yup.array().min(MIN_NUMBER_OF_EXPERIENCE).of(experienceSchema),
   projects: yup.array().of(experienceSchema),
   education: yup
