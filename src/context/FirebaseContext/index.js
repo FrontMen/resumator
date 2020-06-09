@@ -20,12 +20,17 @@ const FirebaseAppContextProvider = ({ children, config }) => {
 
   if (initializing) return null;
 
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  googleAuthProvider.setCustomParameters({
+    hd: "frontmen.nl",
+  });
+
   return (
     <FirebaseAppContext.Provider
       value={{
         firebase: firebaseApp,
         initializing,
-        provider: new firebase.auth.GoogleAuthProvider(),
+        provider: googleAuthProvider
       }}
     >
       {children}

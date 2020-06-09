@@ -11,34 +11,38 @@ import {
   Menu,
   MenuItem,
   TextField,
-  Toolbar,
+  Toolbar
 } from "@material-ui/core";
-import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, } from "@material-ui/icons";
+import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, ExitToApp } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 1
   },
   autocomplete: {
     paddingLeft: 50,
-    width: "100%",
+    width: "100%"
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   iconList: {
-    padding: 0,
+    padding: 0
   },
   inputInput: {
     color: "#FFF",
@@ -48,33 +52,33 @@ const useStyles = makeStyles((theme) => ({
     width: 0,
     minWidth: 30,
     flexGrow: 1,
-    textOverflow: "ellipsis",
+    textOverflow: "ellipsis"
   },
   listItem: {
-    justifyContent: "center",
+    justifyContent: "center"
   },
   logo: {
     width: 40,
-    height: 40,
+    height: 40
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   navContainer: {
-    display: "flex",
+    display: "flex"
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+      display: "block"
+    }
   },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: "100%",
@@ -82,8 +86,8 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
       display: "flex",
       flex: 2,
-      width: "auto",
-    },
+      width: "auto"
+    }
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -93,13 +97,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    left: 0,
+    left: 0
   },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
+      display: "flex"
+    }
   },
   toolbar: {
     display: "flex",
@@ -107,8 +111,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
+    ...theme.mixins.toolbar
+  }
 }));
 
 const Nav = ({ handleSearch }) => {
@@ -144,6 +148,13 @@ const Nav = ({ handleSearch }) => {
       <MenuItem onClick={() => goTo("/")}>Sign out</MenuItem>
     </Menu>
   );
+
+  const signOutUser = function() {
+    firebase.auth().signOut().then(function() {
+      goTo("/");
+    }).catch(function() {
+    });
+  };
 
   return (
     <div className={classes.navContainer}>
@@ -183,12 +194,12 @@ const Nav = ({ handleSearch }) => {
                       placeholder="Search…"
                       InputProps={{
                         ...params.InputProps,
-                        disableUnderline: true,
+                        disableUnderline: true
                       }}
                       inputProps={{
                         ...params.inputProps,
                         "aria-label": "search",
-                        className: classes.inputInput,
+                        className: classes.inputInput
                       }}
                     />
                   </>
@@ -221,7 +232,7 @@ const Nav = ({ handleSearch }) => {
         className={classes.drawer}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
         anchor="left"
       >
@@ -250,6 +261,14 @@ const Nav = ({ handleSearch }) => {
           <ListItem button key={"preview"} className={classes.listItem}>
             <IconButton aria-label="preview" onClick={() => goTo("/")}>
               <Web />
+            </IconButton>
+          </ListItem>
+          <ListItem
+            button
+            key={"logout"}
+          >
+            <IconButton aria-label="logout" onClick={() => signOutUser()}>
+              <ExitToApp />
             </IconButton>
           </ListItem>
         </List>
