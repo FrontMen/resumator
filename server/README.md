@@ -21,7 +21,7 @@ There is a dev server script and a start script in place.
 
 ## Heroku commands / deploy steps
 
-In order to deploy you need an Heroku account and install the Heroku node package👇.
+To deploy the App you need a Heroku account and install the Heroku node package👇.
 
 ```
 npm install -g heroku
@@ -33,7 +33,7 @@ When logged in you can create a new Heroku project
 heroku create
 ```
 
-To deploy the app you need to point to a sub directory like so:
+To deploy the app you need to point to a subdirectory like so:
 
 ```
 git subtree push --prefix server heroku master
@@ -41,7 +41,7 @@ git subtree push --prefix server heroku master
 
 In the above command `server` refers to the server folder.
 
-To make the app work on Heroku it needs the env variables and can be added in the heroku app settings.
+To make the app work on Heroku it needs the env variables and can be added in the Heroku app settings.
 
 _Please note that the Heroku endpoint needs to be updated when a new endpoint is created as it currently is pointing to my heroku account._
 
@@ -70,12 +70,12 @@ _Please note that the Heroku endpoint needs to be updated when a new endpoint is
   the input.docx can be found in the `/docx` folder
 
 - Add output.docx in docx folder
-  currently it creates the output.docx in the `/routes` folder. it would be better to move it in the `/docx` folder.
+  currently, it creates the output.docx in the `/routes` folder. it would be better to move it in the `/docx` folder.
 
 - Other chores.
   - it probably needs some refactoring here in there like using more async calls over .then.
-  - missing typings: not everything is typed or typed correct at this point.
+  - missing typings: not everything is typed or typed correctly at this point.
 
 _**Bug to Fix**_
 
-- The API needs to be logged in as a Firebase user in order to get permission to fetch the resume data.
+- The API needs to be logged in as a Firebase user to get permission to fetch the resume data.
