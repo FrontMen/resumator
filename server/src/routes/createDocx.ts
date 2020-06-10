@@ -1,6 +1,8 @@
 import express, { Request } from "express";
 import PizZip from "pizzip";
+// @ts-ignore
 import Docxtemplater from "docxtemplater";
+// @ts-ignore
 import ImageModule from "docxtemplater-image-module";
 import fs from "fs";
 import path from "path";
@@ -34,9 +36,7 @@ export default router.get("/create", async (req: Request, res) => {
     // rename opts to image options
     const imageModule = new ImageModule(opts);
     const zip = new PizZip(content);
-    const doc = await new Docxtemplater()
-      .attachModule(imageModule)
-      .loadZip(zip);
+    const doc = await new Docxtemplater().attachModule(imageModule).loadZip(zip);
 
     const data = await getResume(req.query.resume);
 
@@ -47,6 +47,7 @@ export default router.get("/create", async (req: Request, res) => {
         introduction: resume.introduction,
         skills: resume.skills,
         education: resume.education,
+        projects: resume.projects,
       });
 
       // The render function replaces the placeholder text from the input.docx with the  data
