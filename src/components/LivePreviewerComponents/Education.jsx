@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
-import EditIcon from "./EditIcon";
-import EditModalWrapper from "./ModalWrapper";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import EducationItem from "./EducationItem";
 import { TextField, Typography } from "@material-ui/core";
-import Input from "../Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
+import Card from "../Card";
+import Input from "../Input";
+import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
+import EditIcon from "./EditIcon";
+import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
+import EducationItem from "./EducationItem";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -110,6 +111,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           name="endDate"
           label="End Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
 
         <FormControlLabel

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import avatars from "../../assets/images/avatars";
 import { useForm } from "react-hook-form";
-import Card from "../Card";
-import EditIcon from "./EditIcon";
-import EditModalWrapper from "./ModalWrapper";
-import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField, Typography } from "@material-ui/core";
-import Input from "../Input";
-import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DatePicker } from "@material-ui/pickers";
 import isEqual from "lodash/isEqual";
+import avatars from "../../assets/images/avatars";
+import { getFormattedDate } from "../../utils/getFormattedDate";
+import Card from "../Card";
+import Input from "../Input";
+import AvatarSelector from "../FormComponents/AvatarSelector";
+import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
+import EditModalWrapper from "./ModalWrapper";
+import EditIcon from "./EditIcon";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -105,6 +106,7 @@ const TopSection = ({ personalia, onSubmit }) => {
           name="dateOfBirth"
           label="Date of birth"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
 
         <Input

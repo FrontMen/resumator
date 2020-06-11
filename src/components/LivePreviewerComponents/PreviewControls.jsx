@@ -1,9 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
+import DropdownButton from "./DropdownButton";
 
 const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
   console.log(id);
+
+  const onClickDropdown = (action) => {
+    switch (action) {
+      case "PDF": {
+        window.open(`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`);
+        return;
+      }
+      case "DOCX": {
+        window.open(`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`);
+        return;
+      }
+      default:
+        return;
+    }
+  };
   return (
     <TopSide>
       <>
@@ -17,13 +33,11 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
       </>
 
       <div>
-        <StyledButton
-          variant="contained"
-          type="button"
-          href={`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`}
-        >
-          Download
-        </StyledButton>
+        <DropdownButton
+          label="Download as.."
+          actions={["PDF", "DOCX"]}
+          onClick={onClickDropdown}
+        />
         <StyledButton
           onClick={() => {
             setShowPDFModal(true);

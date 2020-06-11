@@ -15,8 +15,8 @@ const Skills = ({ skills, onSubmit }) => {
   const [skillsState, setSkillsState] = React.useState(
     skills.length > 0 ? skills.map((s) => s.name) : []
   );
-  const methods = useForm({});
 
+  const methods = useForm({});
   const reset = methods.reset;
   const getValues = methods.getValues;
 
@@ -65,7 +65,11 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsSelect skills={skillsState} setSkills={setSkillsState} />
+        <SkillsSelect
+          onSkillsChanged={setSkillsState}
+          skills={skillsState}
+          label="Skills"
+        />
       </EditModalWrapper>
     </StyledCard>
   );

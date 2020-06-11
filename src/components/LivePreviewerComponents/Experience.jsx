@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
-import Input from "../Input";
 import { TextField, Typography } from "@material-ui/core";
-import ExperienceItem from "./ExperienceItem";
 import { DatePicker } from "@material-ui/pickers";
+import Card from "../Card";
+import Input from "../Input";
+import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
 import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import ExperienceItem from "./ExperienceItem";
+import EditModalWrapper from "./ModalWrapper";
 
 const Experience = ({
   type,
@@ -128,6 +129,7 @@ const Experience = ({
           name="startDate"
           label="Start Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
         <Input
           as={DatePicker}
@@ -139,11 +141,12 @@ const Experience = ({
           name="endDate"
           label="End Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
         <SkillsSelect
-          label="Skills"
+          onSkillsChanged={setSkillsState}
           skills={skillsState}
-          setSkills={setSkillsState}
+          label="Skills"
         />
       </EditModalWrapper>
     </Card>

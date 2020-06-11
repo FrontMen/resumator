@@ -1,61 +1,57 @@
-import React from "react";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import React, { useRef } from "react";
 import CustomChip from "./CustomChip";
 import { skillsConstants } from "../../config/skills.constants";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
+import { TextField, InputLabel } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 
 export const createSkillObjects = (skillStrings) => {
   return skillStrings.map((s) => ({ name: s }));
 };
 
-const SkillsSelect = ({ skills, setSkills, label }) => {
-  const handleChange = (e) => {
-    setSkills(e.target.value);
-  };
+const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
+  // This is necessary because this value shouldn't change
+  // so MUI doesn't throw warnings
+  const { current: defaultValue } = useRef(skills);
+  const renderSelectedSkills = (currentSkills, getTagProps) =>
+    currentSkills.map((skill, index) => (
+      <CustomChip
+        key={skill}
+        label={skill}
+        size="small"
+        variant="outlined"
+        color="secondary"
+        {...getTagProps({ index })}
+      />
+    ));
 
-  const handleDelete = (skillName) => {
-    const newSkills = skills.filter((s) => s !== skillName);
-    setSkills(newSkills);
-  };
+  const renderInput = (params) => (
+    <TextField
+      {...params}
+      variant="outlined"
+      placeholder="Add frameworks, libraries, technologies..."
+    />
+  );
+
+  const onChange = (event, skills) => onSkillsChanged(skills);
+
   return (
-    <FormControl>
+    <>
       {label && <InputLabel id="skill-label">{label}</InputLabel>}
 
-      <Select
-        labelId="skill-label"
-        id="skill"
+      <Autocomplete
+        id="skill-list-autocomplete"
         multiple
-        value={skills}
-        onChange={handleChange}
-        renderValue={(selectedSkills) => {
-          return (
-            <>
-              {selectedSkills.map((skill) => (
-                <CustomChip
-                  size="small"
-                  variant="outlined"
-                  color="secondary"
-                  onMouseDown={(event) => {
-                    event.stopPropagation();
-                  }}
-                  key={skill}
-                  label={skill}
-                  onDelete={() => handleDelete(skill)}
-                />
-              ))}
-            </>
-          );
-        }}
-      >
-        {skillsConstants.map((name) => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+        freeSolo
+        fullWidth
+        disableClearable
+        disableCloseOnSelect
+        options={skillsConstants}
+        defaultValue={defaultValue}
+        renderTags={renderSelectedSkills}
+        renderInput={renderInput}
+        onChange={onChange}
+      />
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ import {
   TextField,
   Toolbar,
 } from "@material-ui/core";
-import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, ExitToApp, } from "@material-ui/icons";
+import { AccountCircle, Menu as MenuIcon, Notifications, People, Search, Web, ExitToApp, } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
@@ -198,12 +198,12 @@ const Nav = ({ handleSearch }) => {
                       placeholder="Search…"
                       InputProps={{
                         ...params.InputProps,
-                        disableUnderline: true
+                        disableUnderline: true,
                       }}
                       inputProps={{
                         ...params.inputProps,
                         "aria-label": "search",
-                        className: classes.inputInput
+                        className: classes.inputInput,
                       }}
                     />
                   </>
@@ -236,22 +236,12 @@ const Nav = ({ handleSearch }) => {
         className={classes.drawer}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.drawerPaper,
         }}
         anchor="left"
       >
         <div className={classes.toolbar} />
         <List className={classes.iconList}>
-          <ListItem
-            button
-            key={"create"}
-            className={classes.listItem}
-            selected={location.pathname === "/creator"}
-          >
-            <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
-              <AddCircle />
-            </IconButton>
-          </ListItem>
           <ListItem
             button
             key={"overview"}

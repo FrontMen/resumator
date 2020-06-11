@@ -7,6 +7,8 @@ import tableIcons from "./constants/tableIcons";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles } from "@material-ui/core/styles";
 import avatars from "../../assets/images/avatars";
+import { Button, Grid } from "@material-ui/core";
+import styled from "@emotion/styled";
 
 const useStyles = makeStyles(() => ({
   activeIcon: {
@@ -66,100 +68,112 @@ const Home = ({ searchText }) => {
   }
 
   return (
-    <div style={{ maxWidth: "100%" }}>
+    <Grid container>
+      <Grid item xs={12}>
+        <StyledButton href="/creator" variant="contained" color="primary">
+          Add Resume
+        </StyledButton>
+      </Grid>
       {readyToRender && data && (
-        <MaterialTable
-          options={{
-            search: false,
-            actionsColumnIndex: -1,
-            pageSize: 10,
-            pageSizeOptions: [10, 15, 25, 50],
-          }}
-          icons={tableIcons}
-          columns={[
-            {
-              title: "",
-              field: "avatar",
-              width: 40,
-              render: (rowData) => (
-                <img
-                  alt={"avatar"}
-                  src={
-                    (avatars.find((x) => x.name === rowData.avatar) || avatars[6])
-                      .img
-                  }
-                  className={classes.miniAvatar}
-                />
-              ),
-            },
-            {
-              title: "Name",
-              field: "personalia.lastName",
-              render: (rowData) => {
-                return `${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
+        <Grid item xs={12}>
+          <MaterialTable
+            options={{
+              search: false,
+              actionsColumnIndex: -1,
+              pageSize: 10,
+              pageSizeOptions: [10, 15, 25, 50],
+            }}
+            icons={tableIcons}
+            columns={[
+              {
+                title: "",
+                field: "avatar",
+                width: 40,
+                render: (rowData) => (
+                  <img
+                    alt={"avatar"}
+                    src={
+                      (avatars.find((x) => x.name === rowData.avatar) || avatars[6])
+                        .img
+                    }
+                    className={classes.miniAvatar}
+                  />
+                ),
               },
-            },
-            { title: "City", field: "personalia.city" },
-            {
-              title: "Skills",
-              field: "skills",
-              render: (rowData) => {
-                const skills = rowData.skills.map(({ id, name }, i) => (
-                  <li className={classes.inlineList} key={id + i}>
-                    {(i ? ", " : "") + name}
-                  </li>
-                ));
-                return <ul className={classes.skillList}>{skills}</ul>;
+              {
+                title: "Name",
+                field: "personalia.lastName",
+                render: (rowData) => {
+                  return `${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
+                },
               },
-            },
-            {
-              title: "Status",
-              field: "active",
-              type: "boolean",
-              render: (rowData) => {
-                return rowData.active ? (
-                  <span>
-                    <FiberManualRecordIcon
-                      color="primary"
-                      className={classes.activeIcon}
-                    />
-                    Active
-                  </span>
-                ) : (
-                  <span style={{ color: "gray" }}>
-                    <FiberManualRecordIcon
-                      color="disabled"
-                      className={classes.activeIcon}
-                    />
-                    Inactive
-                  </span>
-                );
+              { title: "City", field: "personalia.city" },
+              {
+                title: "Skills",
+                field: "skills",
+                render: (rowData) => {
+                  const skills = rowData.skills.map(({ id, name }, i) => (
+                    <li className={classes.inlineList} key={id + i}>
+                      {(i ? ", " : "") + name}
+                    </li>
+                  ));
+                  return <ul className={classes.skillList}>{skills}</ul>;
+                },
               },
-            },
-          ]}
-          data={data}
-          title="Resumes Overview"
-          actions={[
-            {
-              icon: tableIcons.Edit,
-              tooltip: "edit User",
-              onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
-            },
-            {
-              icon: tableIcons.GetAppIcon,
-              tooltip: "download resume",
-              onClick: (event, rowData) => goTo(`./creator/${rowData.id}`),
-            },
-          ]}
-          localization={{
-            header: {
-              actions: "",
-            },
-          }}
-        />
+              {
+                title: "Status",
+                field: "active",
+                type: "boolean",
+                render: (rowData) => {
+                  return rowData.active ? (
+                    <span>
+                      <FiberManualRecordIcon
+                        color="primary"
+                        className={classes.activeIcon}
+                      />
+                      Active
+                    </span>
+                  ) : (
+                    <span style={{ color: "gray" }}>
+                      <FiberManualRecordIcon
+                        color="disabled"
+                        className={classes.activeIcon}
+                      />
+                      Inactive
+                    </span>
+                  );
+                },
+              },
+            ]}
+            data={data}
+            title="Resumes Overview"
+            actions={[
+              {
+                icon: tableIcons.Edit,
+                tooltip: "edit User",
+                onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
+              },
+              {
+                icon: tableIcons.GetAppIcon,
+                tooltip: "download resume",
+                onClick: (event, rowData) => goTo(`./creator/${rowData.id}`),
+              },
+            ]}
+            localization={{
+              header: {
+                actions: "",
+              },
+            }}
+          />
+        </Grid>
       )}
-    </div>
+    </Grid>
   );
 };
+
+const StyledButton = styled(Button)`
+  float: right;
+  margin-bottom: 30px;
+`;
 
 export default Home;
