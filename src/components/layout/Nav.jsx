@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   }
 }));
 
@@ -149,10 +149,11 @@ const Nav = ({ handleSearch }) => {
     </Menu>
   );
 
-  const signOutUser = function() {
+  const signOutUser = async function() {
     firebase.auth().signOut().then(function() {
       goTo("/");
     }).catch(function() {
+      console.log('logout failed');
     });
   };
 

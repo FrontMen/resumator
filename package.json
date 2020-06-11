@@ -42,8 +42,7 @@
     "lint": "eslint .",
     "eslint:github-action": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
-    "start-local": "REACT_APP_FIREBASE_API_KEY=AIzaSyAQfXSoxtnRX1l8bLy9Esa__ongjndIUdY REACT_APP_FIREBASE_AUTH_DOMAIN=fm-resume.firebaseapp.com REACT_APP_FIREBASE_DATABASE_URL=https://fm-resume.firebaseio.com REACT_APP_FIREBASE_PROJECT_ID=fm-resume REACT_APP_FIREBASE_STORAGE_BUCKET=fm-resume.appspot.com REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1085516075836 REACT_APP_FIREBASE_APP_ID=1:1085516075836:web:feeae1847bf88c2319c439 react-scripts start"
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "eslintConfig": {
     "extends": "react-app"
