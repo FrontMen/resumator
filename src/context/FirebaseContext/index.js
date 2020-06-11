@@ -30,7 +30,7 @@ const FirebaseAppContextProvider = ({ children, config }) => {
       value={{
         firebase: firebaseApp,
         initializing,
-        provider: googleAuthProvider
+        provider: googleAuthProvider,
       }}
     >
       {children}
