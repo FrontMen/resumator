@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
@@ -12,14 +12,24 @@ import {
   MenuItem,
   TextField,
   Toolbar,
+  Avatar,
 } from "@material-ui/core";
-import { AccountCircle, Menu as MenuIcon, Notifications, People, Search, Web, ExitToApp, } from "@material-ui/icons";
+import {
+  AccountCircle,
+  Menu as MenuIcon,
+  Notifications,
+  People,
+  Search,
+  Web,
+  ExitToApp,
+} from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
@@ -160,6 +170,14 @@ const Nav = ({ handleSearch }) => {
       });
   };
 
+  const { user } = useContext(FirebaseAppContext);
+  const avatarComponent =
+    user && user.photoURL ? (
+      <Avatar alt={user.displayName} src={user.photoURL} />
+    ) : (
+      <AccountCircle />
+    );
+
   return (
     <div className={classes.navContainer}>
       <div className={classes.grow}>
@@ -225,7 +243,7 @@ const Nav = ({ handleSearch }) => {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                {avatarComponent}
               </IconButton>
             </div>
           </Toolbar>
@@ -257,10 +275,7 @@ const Nav = ({ handleSearch }) => {
               <Web />
             </IconButton>
           </ListItem>
-          <ListItem
-            button
-            key={"logout"}
-          >
+          <ListItem button key={"logout"}>
             <IconButton aria-label="logout" onClick={() => signOutUser()}>
               <ExitToApp />
             </IconButton>

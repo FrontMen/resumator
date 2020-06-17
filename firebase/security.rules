@@ -1,0 +1,47 @@
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read, update, delete: if true
+      	&& isAuthorised()
+        && request.auth.uid == userId;
+      allow create: if request.auth != null;
+    }
+
+    match /resumes/{resume} {
+
+      function isManager() {
+        return
+        	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isManager == true
+      }
+
+      function isOwner(rscs) {
+        return
+        	rscs.data.personalia.email == request.auth.token.email
+      }
+
+      allow read, write: if true
+        && isAuthorised()
+        && isAllowedDomain()
+        && (
+          false
+          || isOwner(resource)
+          || isManager()
+        )
+
+      }
+  }
+
+
+
+  function isAuthorised() {
+    return request.auth.uid != null;
+  }
+
+  function isAllowedDomain() {
+    return true
+      && request.auth.token.email_verified == true
+      && request.auth.token.email.matches(".*@frontmen.nl")
+  }
+}

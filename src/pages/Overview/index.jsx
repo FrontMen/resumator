@@ -31,10 +31,14 @@ const useStyles = makeStyles(() => ({
 
 const Home = ({ searchText }) => {
   const classes = useStyles();
-  const { firebase } = useContext(FirebaseAppContext);
-  const [val, loading, error] = useCollection(
-    firebase.firestore().collection("resumes")
-  );
+  const { firebase, user } = useContext(FirebaseAppContext);
+
+  let query = firebase.firestore().collection("resumes");
+  if (user && user.userRec.isManager !== true) {
+    query = query.where("personalia.email", "==", user.email);
+  }
+
+  const [val, loading, error] = useCollection(query);
 
   // id key isn't in the data by default, so merging it like this
   let data = val && val.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -42,6 +46,10 @@ const Home = ({ searchText }) => {
 
   const history = useHistory();
   const goTo = (path) => history.push(path);
+
+  if (readyToRender && data.length === 1) {
+    goTo(`/live/${data[0].id}`);
+  }
 
   const filterInputHandler = (value) => {
     const newfilterText = value.toLowerCase().trim();
