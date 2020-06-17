@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,15 +26,6 @@ const Experience = ({
   const [currentItemId, setCurrentItemId] = useState(null);
   const [skillsState, setSkillsState] = React.useState(experience.skills || []);
   const [descriptionState, setDescriptionState] = React.useState();
-
-  useEffect(() => {
-    if (currentItemId) {
-      const currentSkills = experience.find((e) => e.id === currentItemId).skills;
-      setSkillsState(currentSkills.map((s) => s.name));
-    } else {
-      setSkillsState([]);
-    }
-  }, [experience, currentItemId]);
   const methods = useForm({});
   const { control, getValues, reset } = methods;
 
@@ -140,7 +131,6 @@ const Experience = ({
         <SkillsSelectFormField
           onSkillsChanged={setSkillsState}
           skills={skillsState}
-          label="Skills"
           formControl={control}
           formRules={{ required: true }}
           name="skills"

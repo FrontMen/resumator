@@ -28,6 +28,7 @@
     "lodash": "^4.17.15",
     "material-table": "^1.57.2",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-firebase-hooks": "^2.1.1",
     "react-hook-form": "^5.3.1",

@@ -5,7 +5,6 @@ import SkillsSelect from "./SkillsSelect";
 const SkillsSelectFormField = ({
   skills,
   onSkillsChanged,
-  label,
   formControl,
   formRules,
   name,
@@ -24,7 +23,6 @@ const SkillsSelectFormField = ({
       name={name}
       onChange={onChange}
       defaultValue={skills}
-      label={label}
     />
   );
 };

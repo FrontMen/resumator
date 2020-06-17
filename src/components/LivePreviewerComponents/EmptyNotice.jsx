@@ -1,9 +1,9 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 
-const EmptyNotice = ({ items, children }) => {
+const EmptyNotice = ({ items, children, className }) => {
   return (
-    <div>
+    <div className={className}>
       {items.length === 0 && (
         <Typography
           color={items.length > 0 ? "primary" : "secondary"}
