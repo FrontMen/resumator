@@ -28,12 +28,23 @@ const FirebaseAppContextProvider = ({ children, config }) => {
   });
 
   firebase.auth().onAuthStateChanged(function (user) {
-    const docRef = firebase.firestore().collection("users").doc(user.uid);
-
-    docRef.get().then((userRec) => {
-      Object.assign(user, { userRec: userRec.data() });
-      setUser(user);
-    });
+    if (user) {
+      // get the corresponding user record from the database
+      // before setting the user object to the context
+      // because we gonna need to know if it's a manager or not
+      const docRef = firebase.firestore().collection("users").doc(user.uid);
+      docRef
+        .get()
+        .then((userRec) => {
+          Object.assign(user, { userRec: userRec.data() });
+          setUser(user);
+        })
+        .catch(() => {
+          setUser(user);
+        });
+    } else {
+      setUser(null);
+    }
   });
 
   return (
