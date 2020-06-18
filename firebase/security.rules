@@ -5,8 +5,8 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, update, delete: if true
       	&& isAuthorised()
-        && request.auth.uid == userId;
-      allow create: if request.auth != null;
+        && request.auth.uid == userId
+      allow create: if isAuthorised()
     }
 
     match /resumes/{resume} {
@@ -36,7 +36,7 @@ service cloud.firestore {
 
 
   function isAuthorised() {
-    return request.auth.uid != null;
+    return request.auth.uid != null
   }
 
   function isAllowedDomain() {
