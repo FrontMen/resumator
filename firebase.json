@@ -9,5 +9,9 @@
     "ui": {
       "enabled": true
     }
+  },
+  "firestore": {
+    "rules": "firebase/security.rules",
+    "indexes": "firebase/indexes.json"
   }
 }
