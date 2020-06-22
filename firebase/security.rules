@@ -24,12 +24,10 @@ service cloud.firestore {
       allow read, write: if true
         && isAuthorised()
         && isAllowedDomain()
-        && (
-          false
+        && (false
           || isOwner(resource)
           || isManager()
         )
-
       }
   }
 

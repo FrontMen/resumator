@@ -27,7 +27,7 @@ const FirebaseAppContextProvider = ({ children, config }) => {
     hd: "frontmen.nl",
   });
 
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged(async function (user) {
     if (!user) {
       setUser(null);
       return;
@@ -36,16 +36,16 @@ const FirebaseAppContextProvider = ({ children, config }) => {
     // get the corresponding user record from the database
     // before setting the user object to the context
     // because we gonna need to know if it's a manager or not
-    const docRef = firebase.firestore().collection("users").doc(user.uid);
-    docRef
-      .get()
-      .then((userRec) => {
-        Object.assign(user, { userRec: userRec.data() });
-        setUser(user);
-      })
-      .catch(() => {
-        setUser(user);
-      });
+    const userRec = await firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get();
+
+    if (userRec) {
+      Object.assign(user, { userRec: userRec.data() });
+    }
+    setUser(user);
   });
 
   return (
