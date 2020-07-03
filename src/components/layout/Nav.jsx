@@ -14,7 +14,7 @@ import {
   Tooltip,
   Avatar,
 } from "@material-ui/core";
-import { AccountCircle, People, Search, ExitToApp } from "@material-ui/icons";
+import { AccountCircle, People, Search, ExitToApp, DynamicFeed } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -249,6 +249,19 @@ const Nav = ({ handleSearch }) => {
             <Tooltip title="Overview" aria-label="Overview">
               <CustomIconButton aria-label="overview" disableRipple>
                 <People />
+              </CustomIconButton>
+            </Tooltip>
+          </ListItem>
+          <ListItem
+            button
+            key="evaluation"
+            className={classes.listItem}
+            selected={location.pathname === "/evaluation"}
+            onClick={() => goTo("/evaluation")}
+          >
+            <Tooltip title="Evaluation" aria-label="Evaluation">
+              <CustomIconButton aria-label="evaluation" disableRipple>
+                <DynamicFeed />
               </CustomIconButton>
             </Tooltip>
           </ListItem>

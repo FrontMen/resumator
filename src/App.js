@@ -5,6 +5,7 @@ import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
 
 import Overview from "./pages/Overview";
+import EvaluationWrapper from "./pages/Evaluation";
 import Home from "./pages/Home";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
@@ -38,6 +39,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePageWrapper} />
           <Route exact path="/overview" component={OverviewWrapper} />
+          <Route exact path="/evaluation" component={EvaluationWrapper} />
           <Route exact path="/live/:id" component={LivePreviewerWrapper} />
           <Route exact path="/creator" component={CreatorWrapper} />
           <Route exact path="/previewer/:id" component={PdfPreviewer} />
