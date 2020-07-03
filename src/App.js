@@ -5,7 +5,7 @@ import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
 
 import Overview from "./pages/Overview";
-import EvaluationWrapper from "./pages/Evaluation";
+import Evaluation from "./pages/Evaluation";
 import Home from "./pages/Home";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
@@ -60,6 +60,12 @@ const HomePageWrapper = (props) => (
 const OverviewWrapper = (props) => (
   <MainLayout>
     <Overview {...props} />
+  </MainLayout>
+);
+
+const EvaluationWrapper = (props) => (
+  <MainLayout>
+    <Evaluation {...props} />
   </MainLayout>
 );
 
