@@ -1,13 +1,13 @@
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 
-exports.createUser = functions.auth.user().onCreate(async (user) => {
+export const createUser = functions.auth.user().onCreate(async (user) => {
   try {
     const userRef = admin.firestore().collection("users");
 
     const snap = await userRef.where("email", "==", user.email).get();
 
-    let userData = { registered: true };
+    let userData: {} = { registered: true };
     // Write new user if it doesn't exist
     if (snap.empty) {
       userData = {
@@ -20,7 +20,9 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
 
       snap.forEach((doc) => {
         userDoc = doc.data();
-        doc.ref.delete();
+        doc.ref.delete().catch(() => {
+          console.log("error deleting reference ");
+        });
       });
 
       userData = {

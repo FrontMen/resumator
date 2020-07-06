@@ -1,4 +1,5 @@
 import { Resume } from "../types";
+import * as firebase from "firebase";
 
 export default class ResumeModel {
   firstName: string;
