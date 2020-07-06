@@ -13,7 +13,9 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
         return;
       }
       case "DOCX": {
-        window.open(`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`);
+        window.open(
+          `https://us-central1-fm-resume.cloudfunctions.net/createDocx?resume=${id}`
+        );
         return;
       }
       default:
