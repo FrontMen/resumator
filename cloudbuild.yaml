@@ -1,0 +1,8 @@
+steps:
+  # Install
+  - name: 'grc.io/cloud-builders/npm'
+    args: ['install']
+
+  # Deploy
+  - name: 'grc.io/fm-resume/firebase'
+    args: ['deploy']
