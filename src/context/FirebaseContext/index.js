@@ -3,22 +3,28 @@ import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+import getFirebaseConfig from "./getFirebaseConfig";
+
 export const FirebaseAppContext = React.createContext({
   firebase: {},
   initializing: true,
   user: {},
 });
 
-const FirebaseAppContextProvider = ({ children, config }) => {
+const FirebaseAppContextProvider = ({ children }) => {
   const [firebaseApp, setFirebaseApp] = React.useState({});
   const [initializing, setInitializing] = React.useState(true);
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
-    const app = firebase.initializeApp(config);
-    setFirebaseApp(app.firebase_);
-    setInitializing(false);
-  }, [config]);
+    const initApp = async () => {
+      const config = await getFirebaseConfig();
+      const app = firebase.initializeApp(config);
+      setFirebaseApp(app.firebase_);
+      setInitializing(false);
+    };
+    initApp();
+  }, []);
 
   if (initializing) return null;
 
