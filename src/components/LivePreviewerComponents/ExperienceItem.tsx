@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Box, Chip, makeStyles } from "@material-ui/core";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { formatDate } from "../../lib/date";
+import { getTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
@@ -51,15 +51,6 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, e
     description = experienceItem.description;
   }
 
-  const getTimespan = () => {
-    const start = experienceItem.startDate;
-    const end = experienceItem.endDate;
-
-    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
-    if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `somewhere in the past - ${formatDate(end)}`;
-  };
-
   return (
     <Box className={sectionItemHeaderClasses.container}>
       <SectionItemHeader
@@ -71,7 +62,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, e
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
         <DetailWithIcon icon={<BusinessIcon />}>{experienceItem.company}</DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
+        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan(experienceItem.startDate, experienceItem.endDate)}</DetailWithIcon>
         <Box
           className={classes.description}
           dangerouslySetInnerHTML={{ __html: description }}

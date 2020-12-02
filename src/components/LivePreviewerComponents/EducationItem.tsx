@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Box } from "@material-ui/core";
-import { formatDate } from "../../lib/date";
+import { getTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
@@ -22,15 +22,6 @@ interface EducationItemProps {
 
 export const EducationItem: FunctionComponent<EducationItemProps> = ({ educationItem, onDelete, onEdit }) => {
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
-  
-  const getTimespan = () => {
-    const start = educationItem.startDate;
-    const end = educationItem.endDate;
-  
-    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
-    if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `somewhere in the past - ${formatDate(end)}`;
-  };
 
   return (
     <Box className={sectionItemHeaderClasses.container}>
@@ -43,7 +34,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({ education
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
         <DetailWithIcon icon={<SchoolIcon />}>{educationItem.institute}</DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
+        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan(educationItem.startDate, educationItem.endDate)}</DetailWithIcon>
       </Box>
     </Box>
   );

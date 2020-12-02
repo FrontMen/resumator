@@ -52,3 +52,9 @@ function walkObject(object: LooseObject, callback: Function): LooseObject {
   }
   return object;
 }
+
+export function getTimespan(start: Date | undefined, end: Date | undefined, format?: string): string | undefined {
+  if (start && end) return `${formatDate(start, format)} - ${formatDate(end, format)}`;
+  if (start && !end) return `${formatDate(start, format)} - present`;
+  if (!start && end) return `somewhere in the past - ${formatDate(end, format)}`;
+};
