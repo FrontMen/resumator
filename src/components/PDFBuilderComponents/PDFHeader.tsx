@@ -57,6 +57,7 @@ export const PDFHeader: FunctionComponent<PDFHeaderProps> = ({ name, city, dateO
           <Text>Hi, I am </Text>
           <Text style={styles.name}>{name}</Text>
         </View>
+        {/* What about Full Stack expert? */}
         <Text>Frontend expert</Text>
         <Text style={styles.details}>{city.toUpperCase()} REGION - NL - {month} {year}</Text>
       </View>
