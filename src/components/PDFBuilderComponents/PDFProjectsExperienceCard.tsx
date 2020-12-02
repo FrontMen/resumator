@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, StyleSheet } from "@react-pdf/renderer";
-import PDFDescription from "./PDFDescription";
+import { PDFDescription } from "./PDFDescription";
 import { getTimespan } from "../../lib/date";
 import { Project, Skill } from "../../../types/Resume";
 
