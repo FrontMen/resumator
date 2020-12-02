@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     width: 200,
     padding: 20,
-    marginBottom: 10,
+    marginBottom: 15,
     backgroundColor: "#e0e0e0",
     fontSize: 9,
   },
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   sideProjectContainer: {
-    margin: "5px 0",
+    margin: "6px 0",
   },
   sideProjectTitle: {
     marginBottom: 2,

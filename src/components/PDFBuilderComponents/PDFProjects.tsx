@@ -1,0 +1,33 @@
+import React, { FunctionComponent } from "react";
+import { View, Text, StyleSheet } from "@react-pdf/renderer";
+import { Experience } from "../../../types/Resume";
+import { PDFProjectsExperienceCard } from "./PDFProjectsExperienceCard";
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 15,
+    marginBottom: 15,
+    fontSize: 9,
+  },
+  title: {
+    color: "#ff450d",
+    fontSize: 10,
+  },
+});
+
+interface PDFProjectsProps {
+  projects: Experience[];
+}
+
+export const PDFProjects: FunctionComponent<PDFProjectsProps> = ({ projects }) => {
+  return (
+    <View style={styles.container} wrap={true}>
+      <Text style={styles.title}>PROJECTS</Text>
+      {projects.map((project, index) => {
+        return (
+          <PDFProjectsExperienceCard key={index} project={project} />
+        );
+      })}
+    </View>
+  );
+}

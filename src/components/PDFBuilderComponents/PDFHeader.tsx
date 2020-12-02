@@ -1,17 +1,14 @@
 import React, { FunctionComponent } from "react";
-import { View, Text, Image, Font, StyleSheet } from "@react-pdf/renderer";
+import { View, Text, Image, StyleSheet } from "@react-pdf/renderer";
 import { formatDate } from "../../lib/date";
-import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
-
-Font.register({ family: "Stratum", src: Stratum1 });
 
 const styles = StyleSheet.create({
   container: {
     height: 145,
     paddingTop: 15,
     paddingLeft: 20,
-    marginBottom: 10,
+    marginBottom: 15,
     backgroundColor: "#e0e0e0",
     fontSize: 36,
     fontFamily: "Titillium Web",
