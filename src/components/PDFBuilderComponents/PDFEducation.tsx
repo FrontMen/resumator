@@ -7,17 +7,24 @@ const styles = StyleSheet.create({
   container: {
     width: 200,
     padding: 20,
+    marginBottom: 10,
     backgroundColor: "#e0e0e0",
-    fontSize: 10,
+    fontSize: 9,
   },
   title: {
     color: "#ff450d",
+    fontSize: 10,
   },
   educationContainer: {
     margin: "5px 0",
   },
   educationTitle: {
+    marginBottom: 2,
     fontFamily: "Stratum",
+    fontSize: 10,
+  },
+  educationInstitute: {
+    marginBottom: 2,
   },
 });
 
@@ -26,16 +33,18 @@ interface PDFEductionProps {
 }
 
 export const PDFEducation: FunctionComponent<PDFEductionProps> = ({ education }) => {
-  return (
+  if (education.length > 0) return (
     <View style={styles.container} wrap={false}>
       <Text style={styles.title}>EDUCATION</Text>
-      {education.map((education, index) => (
+      {education.map((educationItem, index) => (
         <View key={index} style={styles.educationContainer}>
-          <Text style={styles.educationTitle}>{education.name}</Text>
-          <Text>{education.institute}</Text>
-          <Text>{getTimespan(education.startDate, education.endDate, "yyyy")}</Text>
+          <Text style={styles.educationTitle}>{educationItem.name}</Text>
+          <Text style={styles.educationInstitute}>{educationItem.institute}</Text>
+          <Text>{getTimespan(educationItem.startDate, educationItem.endDate, "yyyy")}</Text>
         </View>
       ))}
     </View>
   );
+
+  return null;
 };
