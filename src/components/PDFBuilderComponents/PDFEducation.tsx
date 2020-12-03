@@ -33,7 +33,9 @@ interface PDFEductionProps {
 }
 
 export const PDFEducation: FunctionComponent<PDFEductionProps> = ({ education }) => {
-  if (education.length > 0) return (
+  if (!education || education.length === 0) return null;
+
+  return (
     <View style={styles.container} wrap={false}>
       <Text style={styles.title}>EDUCATION</Text>
       {education.map((educationItem, index) => (
@@ -45,6 +47,4 @@ export const PDFEducation: FunctionComponent<PDFEductionProps> = ({ education })
       ))}
     </View>
   );
-
-  return null;
 };

@@ -20,6 +20,8 @@ interface PDFProjectsProps {
 }
 
 export const PDFProjects: FunctionComponent<PDFProjectsProps> = ({ projects }) => {
+  if (!projects || projects.length === 0) return null;
+  
   return (
     <View style={styles.container} wrap={true}>
       <Text style={styles.title}>PROJECTS</Text>

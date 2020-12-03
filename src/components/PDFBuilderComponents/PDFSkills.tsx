@@ -51,6 +51,8 @@ interface PDFSkillsProps {
 }
 
 export const PDFSkills: FunctionComponent<PDFSkillsProps> = ({ skills }) => {
+  if (!skills || skills.length === 0) return null;
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SKILLS</Text>

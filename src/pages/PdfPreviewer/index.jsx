@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
-import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
+import { PDFTemplate } from "../../components/PDFTemplate/PDFTemplate";
 
 const PDFTemplateWrapper = React.memo(
   ({ resume }) => {

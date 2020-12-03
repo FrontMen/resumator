@@ -20,6 +20,8 @@ interface PDFWorkExperienceProps {
 }
 
 export const PDFWorkExperience: FunctionComponent<PDFWorkExperienceProps> = ({ experience }) => {
+  if (!experience || experience.length === 0) return null;
+
   return (
     <View style={styles.container} wrap={true}>
       <Text style={styles.title}>WORK EXPERIENCE</Text>

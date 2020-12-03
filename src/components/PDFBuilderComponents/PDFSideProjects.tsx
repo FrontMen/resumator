@@ -35,7 +35,9 @@ interface PDFSideProjectsProps {
 }
 
 export const PDFSideProjects: FunctionComponent<PDFSideProjectsProps> = ({ sideProjects, type }) =>{
-  if (sideProjects.length > 0) return (
+  if (!sideProjects || sideProjects.length === 0) return null;
+
+  return (
     <View style={styles.container} wrap={false}>
       <Text style={styles.title}>{type === "openSource" ? "OPEN SOURCE" : "PUBLICATIONS"}</Text>
       {sideProjects.map((sideProjectItem, index) => (
@@ -47,6 +49,4 @@ export const PDFSideProjects: FunctionComponent<PDFSideProjectsProps> = ({ sideP
       ))}
     </View>
   );
-
-  return null;
 }

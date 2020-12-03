@@ -17,6 +17,8 @@ interface PDFIntroductionProps {
 }
 
 export const PDFIntroduction: FunctionComponent<PDFIntroductionProps> = ({ introduction }) => {
+  if (!introduction) return null;
+
   return (
     <View style={styles.container}>
       <Text>{introduction}</Text>

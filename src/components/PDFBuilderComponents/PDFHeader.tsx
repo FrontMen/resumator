@@ -56,7 +56,7 @@ export const PDFHeader: FunctionComponent<PDFHeaderProps> = ({ name, city, dateO
         </View>
         {/* What about Full Stack expert? */}
         <Text>Frontend expert</Text>
-        <Text style={styles.details}>{city.toUpperCase()} REGION - NL - {month} {year}</Text>
+        <Text style={styles.details}>{city?.toUpperCase()} REGION - NL - {month} {year}</Text>
       </View>
       <Image style={styles.avatar} src={(avatars.find((x) => x.name === avatar) || avatars[0]).img} />
     </View>

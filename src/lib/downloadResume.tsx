@@ -5,7 +5,7 @@ import { saveAs } from "file-saver";
 import formatResumeFilename from "./formatResumeFilename";
 import createDocx from "./createDocx";
 import getAvatarDataUri from "./getAvatarDataUri";
-import PDFTemplate from "../components/PDFTemplate/PDFTemplate";
+import { PDFTemplate } from "../components/PDFTemplate/PDFTemplate";
 import Resume from "../../types/Resume";
 
 export default async function downloadResume(resume: Resume, type = "PDF") {
