@@ -3,28 +3,16 @@ import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { PreviewControls } from "./PreviewControls";
-import { TopSection, PersonaliaModel } from "./TopSection";
+import { TopSection } from "./TopSection";
 import { Experience } from "./Experience";
-import { ExperienceModel } from "./ExperienceItem";
-import { Skills, SkillModel } from "./Skills";
+import { Skills } from "./Skills";
 import { SideProjects } from "./SideProjects";
-import { SideProjectModel } from "./SideProjectItem";
 import { Education } from "./Education";
-import { EducationModel } from "./EducationItem";
 import { PDFPreviewModal } from "./PDFPreviewModal";
+import Resume from "../../../types/Resume";
 
 interface LivePreviewerTemplateProps {
-  data: {
-    id: string;
-    personalia: PersonaliaModel;
-    introduction: string;
-    projects: ExperienceModel[];
-    experience: ExperienceModel[];
-    skills: SkillModel[];
-    sideProjects: SideProjectModel[];
-    publications: SideProjectModel[];
-    education: EducationModel[];
-  };
+  data: Resume;
 }
 
 const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ data }) => {

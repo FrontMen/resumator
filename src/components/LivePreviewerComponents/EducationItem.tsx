@@ -3,16 +3,10 @@ import { Box } from "@material-ui/core";
 import { getTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
+import { Education as EducationModel } from "../../../types/Resume";
 // Icons
 import SchoolIcon from "@material-ui/icons/School";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
-
-export interface EducationModel {
-  name: string;
-  institute: string;
-  startDate: Date;
-  endDate: Date;
-}
 
 interface EducationItemProps {
   educationItem: EducationModel;

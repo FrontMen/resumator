@@ -3,7 +3,8 @@ import { Box, Divider } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormTextField, FormDatePicker } from "../Form";
-import { EducationModel, EducationItem } from "./EducationItem";
+import { EducationItem } from "./EducationItem";
+import { Education as EducationModel } from "../../../types/Resume";
 
 interface EducationProps {
   education: EducationModel[];

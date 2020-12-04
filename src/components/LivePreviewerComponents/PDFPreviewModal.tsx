@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { PDFViewer } from "@react-pdf/renderer";
-import styled from "@emotion/styled";
 import { Modal, makeStyles, Box } from "@material-ui/core";
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
 import Resume from "../../../types/Resume";

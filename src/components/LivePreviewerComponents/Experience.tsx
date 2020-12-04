@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from "react";
 import { Box } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
+import { ExperienceItem } from "./ExperienceItem";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormDatePicker, FormRow, FormSkillsSelect, FormTextField } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
+import { Experience as ExperienceModel } from "../../../types/Resume";
 
 interface ExperienceProps {
   type: string,

@@ -3,10 +3,8 @@ import { Box, Chip } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
+import { Skill as SkillModel } from "../../../types/Resume";
 
-export interface SkillModel {
-  name: string;
-}
 interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;

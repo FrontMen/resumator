@@ -5,18 +5,10 @@ import { stateToHTML } from "draft-js-export-html";
 import { getTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
+import { Experience as ExperienceModel } from "../../../types/Resume";
 // Icons
 import BusinessIcon from "@material-ui/icons/Business";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
-
-export interface ExperienceModel {
-  role: string;
-  company: string;
-  startDate: Date;
-  endDate: Date;
-  description: string;
-  stackAndTechniques: { name: string }[];
-}
 
 interface ExperienceItemProps {
   type: string

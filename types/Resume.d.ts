@@ -18,7 +18,7 @@ export interface Education {
   id?: string;
   certificate?: boolean;
   institute?: string;
-  name?: string;
+  name: string;
   startDate?: Date;
   endDate?: Date;
 }
@@ -42,14 +42,14 @@ export interface Project {
 }
 export interface Publication {
   id?: string;
-  link: string;
-  title?: string;
+  link?: string;
+  title: string;
   description: string;
 }
 export interface SideProject {
   id?: string;
   link?: string;
-  title?: string;
+  title: string;
   description: string;
 }
 export interface Skill {

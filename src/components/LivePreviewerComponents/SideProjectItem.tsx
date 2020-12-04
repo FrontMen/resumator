@@ -1,12 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Box, Link } from "@material-ui/core";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
-
-export interface SideProjectModel {
-  title: string;
-  description: string;
-  link: string;
-}
+import { SideProject as SideProjectModel } from "../../../types/Resume";
 
 interface SideProjectItemProps {
   type: string;

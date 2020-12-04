@@ -3,7 +3,8 @@ import { Box, Divider } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormTextField } from "../Form";
-import { SideProjectModel, SideProjectItem } from "./SideProjectItem";
+import { SideProjectItem } from "./SideProjectItem";
+import { SideProject as SideProjectModel } from "../../../types/Resume";
 
 interface SideProjectProps {
   type: string,
