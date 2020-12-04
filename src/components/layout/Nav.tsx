@@ -210,5 +210,3 @@ export const Nav: FunctionComponent<NavProps> = ({ handleSearch }) => {
     </div>
   );
 };
-
-export default Nav;

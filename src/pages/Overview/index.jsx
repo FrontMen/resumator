@@ -10,6 +10,7 @@ import { Button, Grid } from "@material-ui/core";
 import styled from "@emotion/styled";
 import downloadResume from "../../lib/downloadResume";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
+import AddIcon from "@material-ui/icons/Add";
 
 
 const useStyles = makeStyles(() => ({
@@ -145,7 +146,12 @@ const Home = ({ searchText }) => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <StyledButton href="/creator" variant="contained" color="primary">
+        <StyledButton
+          href="/creator"
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          >
           Add Resume
         </StyledButton>
       </Grid>
