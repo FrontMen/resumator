@@ -23,7 +23,7 @@ export interface Education {
   endDate?: Date;
 }
 export interface Experience {
-  id: string;
+  id?: string;
   role: string;
   company: string;
   description: string;
@@ -32,7 +32,7 @@ export interface Experience {
   endDate: Date;
 }
 export interface Project {
-  id: string;
+  id?: string;
   role: string;
   company: string;
   description: string;
@@ -41,13 +41,13 @@ export interface Project {
   endDate: Date;
 }
 export interface Publication {
-  id: string;
+  id?: string;
   link: string;
   title?: string;
   description: string;
 }
 export interface SideProject {
-  id: string;
+  id?: string;
   link?: string;
   title?: string;
   description: string;
@@ -58,6 +58,7 @@ export interface Skill {
 
 export default interface Resume {
   isImport?: Boolean;
+  id?: string;
   personalia: Personalia;
   education: Education[];
   introduction: string;

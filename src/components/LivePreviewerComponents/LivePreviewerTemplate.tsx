@@ -11,7 +11,7 @@ import { SideProjects } from "./SideProjects";
 import { SideProjectModel } from "./SideProjectItem";
 import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
-import PDFPreviewModal from "./PDFPreviewModal";
+import { PDFPreviewModal } from "./PDFPreviewModal";
 
 interface LivePreviewerTemplateProps {
   data: {
