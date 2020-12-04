@@ -1,21 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, FunctionComponent, MouseEvent } from "react";
 import { useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  IconButton,
-  Menu,
-  MenuItem,
-  TextField,
-  Toolbar,
-  Avatar,
-} from "@material-ui/core";
-import { AccountCircle, Search } from "@material-ui/icons";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Avatar } from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
 import "firebase/firestore";
 import "firebase/auth";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
-import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,18 +87,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ handleSearch }) => {
-  const { firebase, user } = useContext(FirebaseAppContext);
+interface FirebaseContext {
+  firebase: {
+    auth: () => any;
+  }
+  initializing: boolean;
+  user: {
+    photoURL: string;
+    displayName: string;
+  }
+}
+
+interface NavProps {
+  handleSearch: (value: string) => void;
+}
+
+export const Nav: FunctionComponent<NavProps> = ({ handleSearch }) => {
+  const { firebase, user } = (useContext(FirebaseAppContext) as FirebaseContext);
 
   const history = useHistory();
-  const goTo = (path) => history.push(path);
+  const goTo = (path: string) => history.push(path);
 
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = (event) => {
+  const handleProfileMenuOpen = (event: MouseEvent) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -151,8 +156,8 @@ const Nav = ({ handleSearch }) => {
             <a href="/overview" title="Back to overview">
               <img className={classes.logo} src={frontmenLogo} alt="logo" />
             </a>
-            <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
-            <div className={classes.search}>
+            <div className={classes.grow} />
+            {/* <div className={classes.search}>
               <Autocomplete
                 id="overview-searcher"
                 multiple
@@ -186,7 +191,7 @@ const Nav = ({ handleSearch }) => {
                   </>
                 )}
               />
-            </div>
+            </div> */}
             <div className={classes.grow} />
             <IconButton
               edge="end"
