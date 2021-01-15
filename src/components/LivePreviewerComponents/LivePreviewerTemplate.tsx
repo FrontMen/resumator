@@ -1,4 +1,4 @@
-import React, { useContext, useState, FunctionComponent } from "react";
+import React, { useContext, useState, FunctionComponent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
@@ -27,34 +27,15 @@ interface LivePreviewerTemplateProps {
   };
 }
 
-const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ data }) => {
+const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
+  data,
+}) => {
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [dataState, setDataState] = useState(data);
   const history = useHistory();
   const { firebase } = useContext(FirebaseAppContext);
 
   const goTo = (path: string) => history.push(path);
-
-  const onSubmit = async () => {
-    try {
-      if (dataState.id) {
-        const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
-          .firestore()
-          .collection("resumes")
-          .doc(dataState.id);
-        await resumesRef.update({
-          ...dataState,
-          isImport: false, // explicitly remove database import flag, but only when saving to firestore
-        });
-      } else {
-        const resumesRef = (firebase as any).firestore().collection("resumes").doc();
-        await resumesRef.set(dataState);
-      }
-      history.push("/overview");
-    } catch (e) {
-      alert(`Error writing document. ${e.message}`);
-    }
-  };
 
   const onSubmitSection = (sectionKey: string, values: any) => {
     console.log(sectionKey, values);
@@ -64,16 +45,44 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
     }));
   };
 
+  useEffect(() => {
+    const storeResume = async () => {
+      try {
+        if (dataState.id) {
+          const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
+            .firestore()
+            .collection("resumes")
+            .doc(dataState.id);
+          await resumesRef.update({
+            ...dataState,
+            isImport: false, // explicitly remove database import flag, but only when saving to firestore
+          });
+        } else {
+          const resumesRef = (firebase as any)
+            .firestore()
+            .collection("resumes")
+            .doc();
+          await resumesRef.set(dataState);
+        }
+      } catch (e) {
+        alert(`Error writing document. ${e.message}`);
+      }
+    };
+    storeResume();
+  }, [dataState, firebase]);
+
   return (
     <>
       <PreviewControls
-        onSaveClicked={onSubmit}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
         resume={dataState}
       />
       <TopSection
-        personalia={{ ...dataState.personalia, introduction: dataState.introduction }}
+        personalia={{
+          ...dataState.personalia,
+          introduction: dataState.introduction,
+        }}
         onSubmit={(data) => {
           const { introduction, ...personalia } = data;
           onSubmitSection("personalia", personalia);
@@ -88,12 +97,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
         gridGap={8}
       >
         {/* Left column */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          flex={2}
-          gridGap={8}
-        >
+        <Box display="flex" flexDirection="column" flex={2} gridGap={8}>
           <Experience
             type="Projects"
             experience={dataState.projects}
@@ -106,13 +110,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
           />
         </Box>
         {/* Right column */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          flex={1}
-          gridGap={8}
-        >
-          <Skills skills={dataState.skills} onSubmit={(data) => onSubmitSection("skills", data)} />
+        <Box display="flex" flexDirection="column" flex={1} gridGap={8}>
+          <Skills
+            skills={dataState.skills}
+            onSubmit={(data) => onSubmitSection("skills", data)}
+          />
           <SideProjects
             type="Side projects"
             projects={dataState.sideProjects}
@@ -128,7 +130,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
             onSubmit={(data) => onSubmitSection("education", data)}
           />
         </Box>
-      </Box>      
+      </Box>
 
       <PDFPreviewModal
         data={dataState}

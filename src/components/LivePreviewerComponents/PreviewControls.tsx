@@ -5,14 +5,12 @@ import downloadResume from "../../lib/downloadResume";
 // Icons
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import SaveIcon from "@material-ui/icons/Save";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 
 interface PreviewControlsProps {
   resume: any;
   goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
-  onSaveClicked: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +29,6 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   goTo,
   setShowPDFModal,
-  onSaveClicked,
 }) => {
   const classes = useStyles();
 
@@ -60,23 +57,12 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         {/* Preview */}
         <SpacedButton
           variant="contained"
-          // marginX={1}
           startIcon={<VisibilityIcon />}
           className={`${classes.button} ${classes.button}--action`}
           onClick={() => setShowPDFModal(true)}
         >
           Preview
         </SpacedButton>
-        {/* Save */}
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<SaveIcon />}
-          className={`${classes.button} ${classes.button}--action`}
-          onClick={onSaveClicked}
-        >
-          Save
-        </Button>
       </Box>
     </Box>
   );
