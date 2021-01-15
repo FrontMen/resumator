@@ -11,7 +11,7 @@ const LoginLayout = ({ children }) => (
     <div>
       <CssBaseline />
       <AppBar position="static" style={{ paddingTop: 20, paddingBottom: 20 }}>
-        <img src={frontmenLogo} alt="logo" />
+        <img src={frontmenLogo} alt="logo" style={{ height: 100 }} />
       </AppBar>
       <main>{children}</main>
     </div>
