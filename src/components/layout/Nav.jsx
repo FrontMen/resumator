@@ -6,16 +6,13 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  TextField,
   Toolbar,
   Avatar,
 } from "@material-ui/core";
-import { AccountCircle, Search } from "@material-ui/icons";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { AccountCircle } from "@material-ui/icons";
 import "firebase/firestore";
 import "firebase/auth";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
-import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,32 +58,6 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: theme.spacing(2),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      marginLeft: theme.spacing(3),
-      display: "flex",
-      flex: 2,
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    left: 0,
-  },
   toolbar: {
     display: "flex",
     alignItems: "center",
@@ -97,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ handleSearch }) => {
+const Nav = () => {
   const { firebase, user } = useContext(FirebaseAppContext);
 
   const history = useHistory();
@@ -152,41 +123,6 @@ const Nav = ({ handleSearch }) => {
               <img className={classes.logo} src={frontmenLogo} alt="logo" />
             </a>
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
-            <div className={classes.search}>
-              <Autocomplete
-                id="overview-searcher"
-                multiple
-                limitTags={3}
-                options={skillsConstants}
-                getOptionLabel={(option) => option}
-                freeSolo
-                onChange={(data, newValue) => {
-                  handleSearch(newValue);
-                }}
-                className={classes.autocomplete}
-                renderInput={(params) => (
-                  <>
-                    <div className={classes.searchIcon}>
-                      <Search />
-                    </div>
-                    <TextField
-                      {...params}
-                      ref={params.InputProps.ref}
-                      placeholder="Search…"
-                      InputProps={{
-                        ...params.InputProps,
-                        disableUnderline: true,
-                      }}
-                      inputProps={{
-                        ...params.inputProps,
-                        "aria-label": "search",
-                        className: classes.inputInput,
-                      }}
-                    />
-                  </>
-                )}
-              />
-            </div>
             <div className={classes.grow} />
             <IconButton
               edge="end"

@@ -11,7 +11,6 @@ import styled from "@emotion/styled";
 import downloadResume from "../../lib/downloadResume";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 
-
 const useStyles = makeStyles(() => ({
   activeIcon: {
     marginBottom: -2,
@@ -97,7 +96,7 @@ const getColumns = (classes) => [
   },
 ];
 
-const Home = ({ searchText }) => {
+const Home = () => {
   const classes = useStyles();
   const { firebase, user } = useContext(FirebaseAppContext);
 
@@ -116,25 +115,6 @@ const Home = ({ searchText }) => {
 
   if (readyToRender && data.length === 1) {
     goTo(`/live/${data[0].id}`);
-  }
-
-  const filterInputHandler = (value) => {
-    const newfilterText = value.toLowerCase().trim();
-    data = data.filter(
-      (r) =>
-        Object.values(r.personalia).some((v) =>
-          v.toString().toLowerCase().trim().includes(newfilterText)
-        ) ||
-        Object.values(r.skills).some((v) =>
-          v.name.toString().toLowerCase().trim().includes(newfilterText)
-        )
-    );
-  };
-
-  if (searchText && data && readyToRender) {
-    searchText.forEach((searchTerm) => {
-      filterInputHandler(searchTerm);
-    });
   }
 
   // Todo: make notification
@@ -174,7 +154,7 @@ const Home = ({ searchText }) => {
                 tooltip: "Download PFD",
                 onClick: (event, rowData) => downloadResume(rowData),
               },
-             ]}
+            ]}
             localization={{
               header: {
                 actions: "",
