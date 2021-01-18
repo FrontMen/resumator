@@ -3,8 +3,19 @@ import { PDFViewer } from "@react-pdf/renderer";
 import styled from "@emotion/styled";
 import Modal from "@material-ui/core/Modal";
 import PDFTemplate from "../PDFTemplate/PDFTemplate";
+import Resume from "../../../types/Resume";
 
-const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
+type Props = {
+  showPDFModal: boolean;
+  setShowPDFModal: (v: boolean) => void;
+  data: Resume;
+};
+
+export const PDFPreviewModal: React.FC<Props> = ({
+  showPDFModal,
+  setShowPDFModal,
+  data,
+}) => {
   if (showPDFModal && data) {
     return (
       <Modal
@@ -34,5 +45,3 @@ const ModalContent = styled.div`
     outline: none;
   }
 `;
-
-export default PDFPreviewModal;

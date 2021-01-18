@@ -12,6 +12,7 @@ import {
   PDFWorkExperience,
 } from "../PDFBuilderComponents";
 import { PDFSideProjects } from "../PDFBuilderComponents/PDFSideProjects";
+import Resume from "../../../types/Resume";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -29,7 +30,11 @@ const FlexView = styled(View)`
   flex-direction: row;
 `;
 
-const PDFTemplate = React.memo(
+type Props = {
+  resume: Resume;
+};
+
+const PDFTemplate: React.FC<Props> = React.memo(
   ({ resume }) => {
     return (
       <Document>

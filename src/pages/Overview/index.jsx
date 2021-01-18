@@ -11,7 +11,6 @@ import styled from "@emotion/styled";
 import downloadResume from "../../lib/downloadResume";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 
-
 const useStyles = makeStyles(() => ({
   activeIcon: {
     marginBottom: -2,
@@ -40,13 +39,15 @@ const getColumns = (classes) => [
     title: "",
     field: "avatar",
     width: 40,
-    render: (rowData) => (
-      <img
-        alt="avatar"
-        src={getAvatarDataUri(rowData.personalia.avatar)}
-        className={classes.miniAvatar}
-      />
-    ),
+    render: function RenderAvatar(rowData) {
+      return (
+        <img
+          alt="avatar"
+          src={getAvatarDataUri(rowData.personalia.avatar)}
+          className={classes.miniAvatar}
+        />
+      );
+    },
   },
   {
     title: "Name",
@@ -60,7 +61,7 @@ const getColumns = (classes) => [
   {
     title: "Skills",
     field: "skills",
-    render: ({ skills }) => {
+    render: function RenderSkills({ skills }) {
       if (!skills || skills.length === 0) {
         return (
           <span className={classes.emptyNotice}>
@@ -81,7 +82,7 @@ const getColumns = (classes) => [
     title: "Status",
     field: "active",
     type: "boolean",
-    render: (rowData) => {
+    render: function RenderStatus(rowData) {
       return rowData.active ? (
         <span>
           <FiberManualRecordIcon color="primary" className={classes.activeIcon} />
@@ -120,15 +121,21 @@ const Home = ({ searchText }) => {
 
   const filterInputHandler = (value) => {
     const newfilterText = value.toLowerCase().trim();
-    data = data.filter(
-      (r) =>
-        Object.values(r.personalia).some((v) =>
+    data = data.filter(({ personalia, skills }) => {
+      if (personalia) {
+        const isInPersonalia = Object.values(personalia).some((v) =>
           v.toString().toLowerCase().trim().includes(newfilterText)
-        ) ||
-        Object.values(r.skills).some((v) =>
+        );
+        if (isInPersonalia) return true;
+      }
+      if (skills) {
+        const isInSkills = Object.values(skills).some((v) =>
           v.name.toString().toLowerCase().trim().includes(newfilterText)
-        )
-    );
+        );
+        if (isInSkills) return true;
+      }
+      return false;
+    });
   };
 
   if (searchText && data && readyToRender) {
@@ -174,7 +181,7 @@ const Home = ({ searchText }) => {
                 tooltip: "Download PFD",
                 onClick: (event, rowData) => downloadResume(rowData),
               },
-             ]}
+            ]}
             localization={{
               header: {
                 actions: "",
