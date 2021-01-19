@@ -28,7 +28,7 @@
     "draft-js-import-html": "^1.4.1",
     "emotion-theming": "^10.0.27",
     "file-saver": "^2.0.5",
-    "firebase": "^7.13.2",
+    "firebase": "^8.2.3",
     "lodash": "^4.17.20",
     "material-table": "^1.69.2",
     "pizzip": "^3.0.6",
