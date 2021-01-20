@@ -1,7 +1,5 @@
-/// <reference types="firebase" />
-
 import { format } from "date-fns";
-
+import firebase from "firebase/app";
 import LooseObject from "../../types/LooseObject";
 
 type DateOrTimestamp = Date | firebase.firestore.Timestamp;

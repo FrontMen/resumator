@@ -11,7 +11,7 @@ import {
   SideProject,
   Skill,
   PartialResume
-} from "../src/types";
+} from "../../types/Resume.d";
 
 type CollectionBySection<T> = {
   education: T
@@ -121,6 +121,12 @@ function extractSections(string: string): Section[] {
           break;
         }
       }
+
+      // skip leading empty lines
+      if (!sections.length) {
+        return sections;
+      }
+
       const [ {type, lines}, ...otherSections ] = sections.reverse();
       return [
         ...otherSections,
@@ -128,7 +134,7 @@ function extractSections(string: string): Section[] {
           type,
           lines: [...lines, line]
         }
-      ]
+      ] 
     }, [] as Section[]);
 }
 
@@ -157,6 +163,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
       email,
       dateOfBirth: dateFromPartial(dateOfBirth),
       city,
+      avatar: ''
     },
     introduction,
   }
