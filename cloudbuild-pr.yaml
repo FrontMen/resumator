@@ -5,4 +5,4 @@ steps:
 
   # Deploy
   - name: "gcr.io/fm-resume/firebase"
-    args: ["hosting:channel:deploy", "test-pr"]
+    args: ["firebase", "hosting:channel:deploy", "test-pr"]
