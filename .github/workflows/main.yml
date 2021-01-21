@@ -1,27 +1,28 @@
-name: Production build
+# name: Production build
 
-on:
-  pull_request:
-    branches: [master, develop]
+# on:
+#   pull_request:
+#     branches: [master, develop]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
+#     strategy:
+#       matrix:
+#         node-version: [12.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      # Cached npm ci
-      - uses: bahmutov/npm-install@v1
-      - run: npm run build --if-present
-      # Still no tests :(
-      # - run: npm run test
-      #   env:
-      #     CI: true
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       # Cached npm ci
+#       - uses: bahmutov/npm-install@v1
+#       # - run: npm run build
+#       - run: npm run firebase hosting:channel:deploy ${GITHUB_REF##*/}
+#       # Still no tests :(
+#       # - run: npm run test
+#       #   env:
+#       #     CI: true
