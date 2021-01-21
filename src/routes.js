@@ -26,8 +26,6 @@ const AuthRoute = (props) => {
 };
 
 const Routes = () => {
-  const { user } = useContext(FirebaseAppContext);
-
   return (
     <BrowserRouter basename="/">
       <Switch>
