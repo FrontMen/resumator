@@ -3,6 +3,8 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["install"]
 
+  - name: "gcr.io/fm-resume/firebase"
+    args: ["projects:list"]
   # Deploy
   - name: "gcr.io/fm-resume/firebase"
-    args: ["firebase", "hosting:channel:deploy", "test-pr"]
+    args: ["hosting:channel:deploy test-pr"]
