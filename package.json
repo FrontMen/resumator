@@ -53,7 +53,7 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "deploy:PR": "dotenv cross-var firebase hosting:channel:deploy %BRANCH_NAME%",
-    "deploy:test": "dotenv cross-var \"echo %REACT_APP_FIREBASE_PROJECT_ID%\""
+    "deploy:test": "dotenv cross-var \"echo %BRANCH_NAME%\""
   },
   "eslintConfig": {
     "extends": "react-app"
