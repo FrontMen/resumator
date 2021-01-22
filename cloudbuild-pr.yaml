@@ -6,7 +6,7 @@ steps:
   - name: "gcr.io/fm-resume/firebase"
     args: ["projects:list"]
   - name: "gcr.io/fm-resume/firebase"
-    args: ["hosting:channel:list"]
+    args: ["--version"]
   # Deploy
   - name: "gcr.io/fm-resume/firebase"
     args: ["hosting:channel:deploy","test-pr"]
