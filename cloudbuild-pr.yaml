@@ -2,11 +2,7 @@ steps:
   # Install
   - name: "gcr.io/cloud-builders/npm"
     args: ["install"]
-
-  - name: "gcr.io/fm-resume/firebase"
-    args: ["projects:list"]
-  - name: "gcr.io/fm-resume/firebase"
-    args: ["--version"]
+ 
   # Deploy
-  - name: "gcr.io/fm-resume/firebase"
-    args: ["hosting:channel:deploy","test-pr"]
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["deploy:pr"]

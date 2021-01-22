@@ -51,7 +51,8 @@
     "lint": "eslint .",
     "eslint:github-action": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
+    "deploy:PR": "hosting:channel:deploy test-pr-2"
   },
   "eslintConfig": {
     "extends": "react-app"
