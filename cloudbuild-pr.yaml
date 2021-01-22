@@ -4,8 +4,8 @@ steps:
     args: ["ci"]
  
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "deploy:test"]
-    
+    args: ["run", "echo $${BRANCH_NAME}"]
+
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "deploy:PR"]
+    args: ["run", "deploy:PR", "echo $${BRANCH_NAME}"]
