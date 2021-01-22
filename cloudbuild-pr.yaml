@@ -3,6 +3,9 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["ci"]
  
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "deploy:test"]
+    
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "deploy:PR"]
