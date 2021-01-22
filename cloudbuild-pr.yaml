@@ -5,4 +5,4 @@ steps:
  
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
-    args: ["deploy:pr"]
+    args: ["run", "deploy:pr"]
