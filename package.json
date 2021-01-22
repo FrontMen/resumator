@@ -52,7 +52,7 @@
     "eslint:github-action": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
-    "deploy:PR": "firebase hosting:channel:deploy test-pr-2"
+    "deploy:PR": "firebase hosting:channel:deploy $BRANCH_NAME"
   },
   "eslintConfig": {
     "extends": "react-app"
