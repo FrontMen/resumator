@@ -8,4 +8,4 @@ steps:
 
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "deploy:PR"]
+    args: ["run", "deploy:PR", "test-branch-name"]
