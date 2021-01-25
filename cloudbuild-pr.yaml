@@ -3,9 +3,9 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["ci"]
  
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "deploy:test"]
+  # - name: "gcr.io/cloud-builders/npm"
+  #   args: ["run", "deploy:test"]
 
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "deploy:PR", "test-branch-name"]
+    args: ["run", "deploy:PR", "echo $BRANCH_NAME | sed -r 's,/,-,g'"]
