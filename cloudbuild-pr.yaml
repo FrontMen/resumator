@@ -6,7 +6,9 @@ steps:
   # Deploy
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "deploy:PR", "${_SAFE_BRANCH_NAME}"]
+
 substitutions:
   _SAFE_BRANCH_NAME: ${BRANCH_NAME//\//-}
+
 # build sometimes wasn't done in default 10 minute timeout
 timeout: 1200s
