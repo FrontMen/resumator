@@ -8,7 +8,11 @@ interface FormSkillsSelectProps extends FormControlProps {
   label?: string;
 }
 
-export const FormSkillsSelect: FunctionComponent<FormSkillsSelectProps> = ({ name, label, ...props }) => {
+export const FormSkillsSelect: FunctionComponent<FormSkillsSelectProps> = ({
+  name,
+  label,
+  ...props
+}) => {
   const { control } = useFormContext();
 
   return (

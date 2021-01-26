@@ -6,14 +6,17 @@ type DateOrTimestamp = Date | firebase.firestore.Timestamp;
 
 export function castDate(timestamp: DateOrTimestamp | undefined): Date | undefined {
   return timestamp && typeof timestamp === "object" && "seconds" in timestamp
-    ? new Date(timestamp.seconds * 1000) as Date
-    : timestamp as Date | undefined;
+    ? (new Date(timestamp.seconds * 1000) as Date)
+    : (timestamp as Date | undefined);
 }
 
-export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "dd-MM-yyyy"): string | undefined {
+export function formatDate(
+  timestamp: DateOrTimestamp | string | undefined,
+  dateformat = "dd-MM-yyyy"
+): string | undefined {
   return timestamp && typeof timestamp === "object"
-    ? format(castDate(timestamp) as Date, dateformat) as string
-    : timestamp as string  | undefined;
+    ? (format(castDate(timestamp) as Date, dateformat) as string)
+    : (timestamp as string | undefined);
 }
 
 /**
@@ -33,7 +36,10 @@ export function castDatesInObject(object: LooseObject): LooseObject {
  * @param {*} object
  * @returns
  */
-export function formatDatesInObject(object: LooseObject, format = "yyyy-MM-dd"): LooseObject {
+export function formatDatesInObject(
+  object: LooseObject,
+  format = "yyyy-MM-dd"
+): LooseObject {
   return walkObject(object, (prop: any) => formatDate(prop, format));
 }
 

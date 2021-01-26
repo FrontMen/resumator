@@ -6,12 +6,16 @@ import { FormColumn, FormRow, FormTextField } from "../Form";
 import { SideProjectModel, SideProjectItem } from "./SideProjectItem";
 
 interface SideProjectProps {
-  type: string,
+  type: string;
   projects: SideProjectModel[];
   onSubmit: (value: SideProjectModel[]) => void;
 }
 
-export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projects, onSubmit }) => {
+export const SideProjects: FunctionComponent<SideProjectProps> = ({
+  type,
+  projects,
+  onSubmit,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<SideProjectModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
@@ -20,7 +24,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projec
     const filteredProjects = [...projects];
     filteredProjects.splice(index, 1);
     onSubmit(filteredProjects);
-  }
+  };
 
   const handleEdit = (item: SideProjectModel, index: number) => {
     setEditItem(item);
@@ -32,7 +36,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projec
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-  }
+  };
 
   const handleSave = (item: SideProjectModel) => {
     const updatedProjects = [...projects];
@@ -43,7 +47,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projec
     setEditItem(null);
     setEditItemIndex(null);
     onSubmit(updatedProjects);
-  }
+  };
 
   return (
     <Section
@@ -52,28 +56,16 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projec
       actionTooltip={`Add ${type.toLowerCase()}`}
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box
-        display="flex"
-        flexDirection="column"
-        marginTop={-1}
-        gridGap={8}
-      >
+      <Box display="flex" flexDirection="column" marginTop={-1} gridGap={8}>
         {projects.map((entry: SideProjectModel, index: number) => (
-          <Box
-            display="flex"
-            flexDirection="column"
-            key={index}
-            gridGap={16}
-          >
+          <Box display="flex" flexDirection="column" key={index} gridGap={16}>
             <SideProjectItem
               type={type}
               projectItem={entry}
               onDelete={() => handleDelete(index)}
               onEdit={(item) => handleEdit(item, index)}
             />
-            {index < projects.length - 1 && (
-              <Divider />
-            )}
+            {index < projects.length - 1 && <Divider />}
           </Box>
         ))}
       </Box>
@@ -87,15 +79,8 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({ type, projec
       >
         <FormColumn>
           <FormRow>
-            <FormTextField
-              required
-              name="title"
-              label="Title"
-            />
-            <FormTextField
-              name="link"
-              label="Link"
-            />
+            <FormTextField required name="title" label="Title" />
+            <FormTextField name="link" label="Link" />
           </FormRow>
           <FormRow>
             <FormTextField

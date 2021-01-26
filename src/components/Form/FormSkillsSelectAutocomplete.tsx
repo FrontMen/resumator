@@ -30,7 +30,11 @@ const useStyles = makeStyles({
   },
 });
 
-const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({ label, value, onChange }) => {
+const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({
+  label,
+  value,
+  onChange,
+}) => {
   const classes = useStyles();
   /**
    * Check if the provided option is currently included in the skills.
@@ -40,15 +44,20 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
   /**
    * Handle adding or deleting a skill through the autocomplete input.
    */
-  const handleSkillChange = (event: object, inputValue: string[], reason: string) => {
-    const skills = inputValue.map(name => ({ name }));
+  const handleSkillChange = (
+    event: object,
+    inputValue: string[],
+    reason: string
+  ) => {
+    const skills = inputValue.map((name) => ({ name }));
     onChange(skills);
-  }
+  };
 
   /**
    * Handle deleting a skill by clicking the x on the chip.
    */
-  const handleSkillDelete = (index: number) => onChange(value.filter((skill, i) => index !== i));
+  const handleSkillDelete = (index: number) =>
+    onChange(value.filter((skill, i) => index !== i));
 
   /**
    * Handle when a skill is being dropped in a new position.
@@ -59,7 +68,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
     skills.splice(destinationIndex, 0, skills.splice(sourceIndex, 1)[0]);
 
     onChange(skills);
-  }
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -72,7 +81,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
         id="skill-list-autocomplete"
         size="small"
         className={classes.autocomplete}
-        value={value.map(skill => skill.name)}
+        value={value.map((skill) => skill.name)}
         options={skillsConstants}
         onChange={handleSkillChange}
         getOptionSelected={getOptionSelected}
@@ -85,16 +94,18 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
             {...params}
           />
         )}
-        renderTags={(value: string[]) => value.map((skill, index) => (
-          // Add a chip for each skill.
-          <FormSkillsSelectChip
-            key={skill}
-            label={skill}
-            index={index}
-            onDrag={handleDrag}
-            onDelete={handleSkillDelete}
-          />
-        ))}
+        renderTags={(value: string[]) =>
+          value.map((skill, index) => (
+            // Add a chip for each skill.
+            <FormSkillsSelectChip
+              key={skill}
+              label={skill}
+              index={index}
+              onDrag={handleDrag}
+              onDelete={handleSkillDelete}
+            />
+          ))
+        }
       />
     </DndProvider>
   );

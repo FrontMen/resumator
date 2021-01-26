@@ -1,4 +1,4 @@
-import * as admin from "firebase-admin";;
+import * as admin from "firebase-admin";
 
 import { createUser } from "./createUser";
 

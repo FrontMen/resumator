@@ -15,9 +15,14 @@ interface SideProjectItemProps {
   onEdit: (item: SideProjectModel) => void;
 }
 
-export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({ type, projectItem, onDelete, onEdit }) => {
+export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({
+  type,
+  projectItem,
+  onDelete,
+  onEdit,
+}) => {
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
-  
+
   return (
     <Box className={sectionItemHeaderClasses.container}>
       <SectionItemHeader

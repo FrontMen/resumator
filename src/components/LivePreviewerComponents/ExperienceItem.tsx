@@ -19,7 +19,7 @@ export interface ExperienceModel {
 }
 
 interface ExperienceItemProps {
-  type: string
+  type: string;
   experienceItem: ExperienceModel;
   onDelete: () => void;
   onEdit: (item: ExperienceModel) => void;
@@ -36,7 +36,12 @@ const useStyles = makeStyles({
   },
 });
 
-export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, experienceItem, onDelete, onEdit }) => {
+export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
+  type,
+  experienceItem,
+  onDelete,
+  onEdit,
+}) => {
   const classes = useStyles();
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
   let description;
@@ -70,7 +75,9 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, e
         onEdit={() => onEdit(experienceItem)}
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
-        <DetailWithIcon icon={<BusinessIcon />}>{experienceItem.company}</DetailWithIcon>
+        <DetailWithIcon icon={<BusinessIcon />}>
+          {experienceItem.company}
+        </DetailWithIcon>
         <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
         <Box
           className={classes.description}

@@ -11,7 +11,7 @@ declare class Docxtemplater {
   loadZip(zip: PizZip): this;
   setOptions(options: Docxtemplater.Options): this;
 
-  setData(tags: {[key: string]: any }): this;
+  setData(tags: { [key: string]: any }): this;
 
   render(): this;
 
@@ -20,10 +20,10 @@ declare class Docxtemplater {
 
 declare namespace Docxtemplater {
   interface Options {
-    modules?: any[],
+    modules?: any[];
     delimiters?: {
-      start: string,
-      end: string
-    }
+      start: string;
+      end: string;
+    };
   }
 }
