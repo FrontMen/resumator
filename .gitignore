@@ -31,3 +31,4 @@ yarn.lock
 
 .firebase/
 credentials.json
+.eslintcache
