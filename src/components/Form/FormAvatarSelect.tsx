@@ -1,6 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { Box, FormControl, FormControlProps, InputLabel, makeStyles, OutlinedInput } from "@material-ui/core";
+import {
+  Box,
+  FormControl,
+  FormControlProps,
+  InputLabel,
+  makeStyles,
+  OutlinedInput,
+} from "@material-ui/core";
 import avatars from "../../assets/images/avatars";
 import { colors } from "../../config/theme";
 
@@ -20,14 +27,18 @@ const useStyles = makeStyles({
 
     "&:hover": {
       outline: `2px auto ${colors.darkBlue}`,
-    }
+    },
   },
   selected: {
     outline: `2px auto ${colors.orange}`,
-  }
+  },
 });
 
-export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({ name, label, ...props }) => {
+export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({
+  name,
+  label,
+  ...props
+}) => {
   const classes = useStyles();
   const { control } = useFormContext();
 
@@ -37,16 +48,8 @@ export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({ nam
       control={control}
       name={name!}
       render={({ value, onChange }) => (
-        <FormControl
-          fullWidth
-          size="small"
-          {...props}
-        >
-          <InputLabel
-            shrink
-            variant="outlined"
-            htmlFor="form-avatar-selector-input"
-          >
+        <FormControl fullWidth size="small" {...props}>
+          <InputLabel shrink variant="outlined" htmlFor="form-avatar-selector-input">
             {label}
           </InputLabel>
           <OutlinedInput
@@ -64,7 +67,9 @@ export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({ nam
                 {avatars.map((avatar, i) => (
                   <Box
                     component="span"
-                    className={`${classes.avatar} ${avatar.name === value && classes.selected}`}
+                    className={`${classes.avatar} ${
+                      avatar.name === value && classes.selected
+                    }`}
                     key={i}
                     style={{
                       backgroundImage: `url(${avatar.img})`,

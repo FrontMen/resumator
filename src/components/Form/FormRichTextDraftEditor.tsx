@@ -1,6 +1,20 @@
-import React, { FunctionComponent, MouseEvent, ReactNode, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  MouseEvent,
+  ReactNode,
+  useRef,
+  useState,
+} from "react";
 import { Box, Divider, makeStyles } from "@material-ui/core";
-import { ContentState, convertFromHTML, convertFromRaw, convertToRaw, Editor, EditorState, RichUtils } from "draft-js";
+import {
+  ContentState,
+  convertFromHTML,
+  convertFromRaw,
+  convertToRaw,
+  Editor,
+  EditorState,
+  RichUtils,
+} from "draft-js";
 import "draft-js/dist/Draft.css";
 import { TooltipIconButton } from "../Material";
 // Icons
@@ -20,7 +34,7 @@ const useStyles = makeStyles({
     "& .DraftEditor-root": {
       padding: "4.5px",
       height: "unset",
-      overflow: "auto"
+      overflow: "auto",
     },
     "& ul, ol": {
       margin: 0,
@@ -32,10 +46,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorProps> = ({ value, onChange }) => {
+export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorProps> = ({
+  value,
+  onChange,
+}) => {
   const classes = useStyles();
   let content;
-  
+
   // Setup the editor.
   try {
     content = convertFromRaw(JSON.parse(value));
@@ -46,7 +63,9 @@ export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorP
   }
 
   const editorRef = useRef<Editor>(null);
-  const [editorState, setEditorState] = useState(EditorState.createWithContent(content));
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(content)
+  );
 
   const handleFocus = (event: MouseEvent) => {
     event.preventDefault();
@@ -82,7 +101,9 @@ export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorP
 
   const hasBlockType = (type: string) => {
     const selection = editorState.getSelection();
-    const block = editorState.getCurrentContent().getBlockForKey(selection.getStartKey());
+    const block = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey());
     return block.getType() === type;
   };
 
@@ -120,22 +141,34 @@ export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorP
       onBlur={handleBlur}
     >
       {/* Styling options */}
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-      >
+      <Box display="flex" flexDirection="row" alignItems="center">
         {/* Unordered list */}
-        {renderBlockTypeButton("unordered-list-item", "Unordered List", <FormatListBulletedIcon fontSize="small" />)}
+        {renderBlockTypeButton(
+          "unordered-list-item",
+          "Unordered List",
+          <FormatListBulletedIcon fontSize="small" />
+        )}
         {/* Ordered list */}
-        {renderBlockTypeButton("ordered-list-item", "Ordered List", <FormatListNumberedIcon fontSize="small" />)}
+        {renderBlockTypeButton(
+          "ordered-list-item",
+          "Ordered List",
+          <FormatListNumberedIcon fontSize="small" />
+        )}
         <Divider orientation="vertical" className={classes.verticalDivider} />
         {/* Bold */}
         {renderStyleButton("BOLD", "Bold", <FormatBoldIcon fontSize="small" />)}
         {/* Italic */}
-        {renderStyleButton("ITALIC", "Italic", <FormatItalicIcon fontSize="small" />)}
+        {renderStyleButton(
+          "ITALIC",
+          "Italic",
+          <FormatItalicIcon fontSize="small" />
+        )}
         {/* Underlined */}
-        {renderStyleButton("UNDERLINE", "Underlined", <FormatUnderlinedIcon fontSize="small" />)}
+        {renderStyleButton(
+          "UNDERLINE",
+          "Underlined",
+          <FormatUnderlinedIcon fontSize="small" />
+        )}
       </Box>
       <Divider />
       <Editor

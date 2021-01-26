@@ -1,17 +1,18 @@
 steps:
   # Install
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['ci']
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["ci"]
 
   # Install functions
-  - name: 'gcr.io/cloud-builders/npm'
-    dir: 'functions'
-    args: ['ci']
+  - name: "gcr.io/cloud-builders/npm"
+    dir: "functions"
+    args: ["ci"]
 
   # Deploy
-  - name: 'gcr.io/fm-resume/firebase'
-    args: ['deploy']
+  - name: "gcr.io/fm-resume/firebase"
+    args: ["deploy"]
 
 # Check if increasing the timeout to 30 min is enough for the pipeline
 # to let 'npm run build' finish in time 
 timeout: 1800s
+

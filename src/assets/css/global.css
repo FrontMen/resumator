@@ -1,7 +1,9 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,7 +33,7 @@ code {
 .RichEditor-root {
   background: #fff;
   border: 1px solid #767676;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   font-size: 14px;
   padding: 15px;
   margin-top: 10px;
@@ -62,7 +64,7 @@ code {
 .RichEditor-editor .RichEditor-blockquote {
   border-left: 5px solid #eee;
   color: #666;
-  font-family: 'Hoefler Text', 'Georgia', serif;
+  font-family: "Hoefler Text", "Georgia", serif;
   font-style: italic;
   margin: 16px 0;
   padding: 10px 20px;
@@ -70,13 +72,13 @@ code {
 
 .RichEditor-editor .public-DraftStyleDefault-pre {
   background-color: rgba(0, 0, 0, 0.05);
-  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
   font-size: 16px;
   padding: 20px;
 }
 
 .RichEditor-controls {
-  font-family: 'Helvetica', sans-serif;
+  font-family: "Helvetica", sans-serif;
   font-size: 14px;
   margin-bottom: 5px;
   user-select: none;

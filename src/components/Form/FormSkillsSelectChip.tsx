@@ -25,7 +25,12 @@ const useStyles = makeStyles({
   },
 });
 
-const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ label, index, onDrag, onDelete }: FormSkillsSelectChipProps) => {
+const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
+  label,
+  index,
+  onDrag,
+  onDelete,
+}: FormSkillsSelectChipProps) => {
   const classes = useStyles();
 
   /**
@@ -38,7 +43,7 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
    */
   const [, drag] = useDrag({
     item: { index, type: DNDTYPE },
-  })
+  });
 
   /**
    * Setup the chip drop handler.
@@ -74,8 +79,8 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
 
       onDrag(sourceIndex, destinationIndex);
       item.index = destinationIndex;
-    }
-  })
+    },
+  });
 
   // Enable drag & drop.
   drag(drop(ref));
@@ -91,9 +96,9 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
       onDelete={() => onDelete(index)}
       // Stop propagation of the mouse event to avoid it being swallowed by the autocomplete.
       // If the event is swallowed, drag & drop doesn't work.
-      onMouseDown={event => event.stopPropagation()}
+      onMouseDown={(event) => event.stopPropagation()}
     />
-  )
+  );
 };
 
 export default FormSkillsSelectChip;

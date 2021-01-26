@@ -20,13 +20,17 @@ interface EducationItemProps {
   onEdit: (item: EducationModel) => void;
 }
 
-export const EducationItem: FunctionComponent<EducationItemProps> = ({ educationItem, onDelete, onEdit }) => {
+export const EducationItem: FunctionComponent<EducationItemProps> = ({
+  educationItem,
+  onDelete,
+  onEdit,
+}) => {
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
-  
+
   const getTimespan = () => {
     const start = educationItem.startDate;
     const end = educationItem.endDate;
-  
+
     if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
     if (start && !end) return `${formatDate(start)} - present`;
     if (!start && end) return `somewhere in the past - ${formatDate(end)}`;
@@ -42,7 +46,9 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({ education
         onEdit={() => onEdit(educationItem)}
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
-        <DetailWithIcon icon={<SchoolIcon />}>{educationItem.institute}</DetailWithIcon>
+        <DetailWithIcon icon={<SchoolIcon />}>
+          {educationItem.institute}
+        </DetailWithIcon>
         <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
       </Box>
     </Box>
