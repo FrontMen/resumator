@@ -21,7 +21,9 @@ const HTMLPreviewer = () => {
   const resumeView = () => {
     // TODO map data from api and create new data object
     if (resume) {
+      // eslint-disable-next-line no-console
       console.log(resume.projects[0].stackAndTechniques.length - 1);
+      // eslint-disable-next-line no-console
       console.log(resume.projects[2].stackAndTechniques.length - 1);
     }
     return resume ? (
