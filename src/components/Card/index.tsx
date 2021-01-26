@@ -7,7 +7,11 @@ interface InternCardProps {
   className?: string;
 }
 
-const InternCard: FunctionComponent<InternCardProps> = ({ children, className, ...props }) => {
+const InternCard: FunctionComponent<InternCardProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <CardContainer {...props} className={className}>
       <CardContent>{children}</CardContent>

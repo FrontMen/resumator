@@ -1,5 +1,14 @@
 import React, { FunctionComponent, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -9,7 +18,7 @@ export interface SectionItemHeaderProps {
   title: string;
   type: string;
   classes?: {
-    actions: string
+    actions: string;
   };
   onDelete: () => void;
   onEdit: () => void;
@@ -31,7 +40,13 @@ export const useSectionItemHeaderStyles = makeStyles({
   },
 });
 
-export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({ title, type, classes, onDelete, onEdit }) => {
+export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
+  title,
+  type,
+  classes,
+  onDelete,
+  onEdit,
+}) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
   return (
@@ -52,11 +67,7 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({ t
           <DeleteIcon fontSize="small" />
         </TooltipIconButton>
         {/* Edit item */}
-        <TooltipIconButton
-          color="inherit"
-          tooltip={`Edit ${type}`}
-          onClick={onEdit}
-        >
+        <TooltipIconButton color="inherit" tooltip={`Edit ${type}`} onClick={onEdit}>
           <EditIcon fontSize="small" />
         </TooltipIconButton>
       </Box>
@@ -71,15 +82,15 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({ t
           <Box>This action cannot be reversed.</Box>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => setDeleteConfirmationOpen(false)}
-          >No</Button>
+          <Button onClick={() => setDeleteConfirmationOpen(false)}>No</Button>
           <Button
             onClick={() => {
               setDeleteConfirmationOpen(false);
               onDelete();
             }}
-          >Yes</Button>
+          >
+            Yes
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>
