@@ -6,7 +6,7 @@ const RESUME_COLLECTION = "resumes";
 const USER_COLLECTION = "users";
 
 export const createUser = functions.auth.user().onCreate(async (user) => {
-  const { email}  = user;
+  const { email } = user;
   try {
     const userCollection = admin.firestore().collection(USER_COLLECTION);
     const resumeCollection = admin.firestore().collection(RESUME_COLLECTION);
@@ -21,9 +21,9 @@ export const createUser = functions.auth.user().onCreate(async (user) => {
     if (resumeSnapshot.empty) {
       const resume: PartialResume = {
         personalia: {
-          email: email
-        }
-      }
+          email: email,
+        },
+      };
       resumePromise = resumeCollection.doc().set(resume);
     }
 
@@ -51,7 +51,7 @@ export const createUser = functions.auth.user().onCreate(async (user) => {
     }
 
     userPromise = userCollection.doc(user.uid).set(userData);
-    return Promise.all([ resumePromise, userPromise ]);
+    return Promise.all([resumePromise, userPromise]);
   } catch (err) {
     throw new functions.https.HttpsError("failed-precondition", err.message);
   }

@@ -7,7 +7,12 @@ interface DropdownButtonProps extends Omit<ButtonProps, "onClick"> {
   onClick: (action: string) => void;
 }
 
-export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({ actions, children, onClick, ...props }) => {
+export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
+  actions,
+  children,
+  onClick,
+  ...props
+}) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
   /**
@@ -46,7 +51,9 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({ actions
         onClose={handleClose}
       >
         {actions.map((action) => (
-          <MenuItem key={action} onClick={() => handleAction(action)}>{action}</MenuItem>
+          <MenuItem key={action} onClick={() => handleAction(action)}>
+            {action}
+          </MenuItem>
         ))}
       </Menu>
     </>

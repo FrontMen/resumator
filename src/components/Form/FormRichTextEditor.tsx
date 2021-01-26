@@ -1,6 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { FormControl, FormControlProps, InputLabel, OutlinedInput } from "@material-ui/core";
+import {
+  FormControl,
+  FormControlProps,
+  InputLabel,
+  OutlinedInput,
+} from "@material-ui/core";
 import { FormRichTextDraftEditor } from "./FormRichTextDraftEditor";
 
 interface FormRichTextEditorProps extends FormControlProps {
@@ -9,7 +14,12 @@ interface FormRichTextEditorProps extends FormControlProps {
   rows?: number;
 }
 
-export const FormRichTextEditor: FunctionComponent<FormRichTextEditorProps> = ({ name, label, rows, ...props}) => {
+export const FormRichTextEditor: FunctionComponent<FormRichTextEditorProps> = ({
+  name,
+  label,
+  rows,
+  ...props
+}) => {
   const { control } = useFormContext();
 
   return (
@@ -18,11 +28,7 @@ export const FormRichTextEditor: FunctionComponent<FormRichTextEditorProps> = ({
       control={control}
       name={name!}
       render={({ value, onChange }) => (
-        <FormControl
-          fullWidth
-          size="small"
-          {...props}
-        >
+        <FormControl fullWidth size="small" {...props}>
           <InputLabel
             shrink
             variant="outlined"
@@ -36,10 +42,7 @@ export const FormRichTextEditor: FunctionComponent<FormRichTextEditorProps> = ({
             id="form-rich-text-editor-input"
             label={label}
             inputComponent={() => (
-              <FormRichTextDraftEditor
-                value={value}
-                onChange={onChange}
-              />
+              <FormRichTextDraftEditor value={value} onChange={onChange} />
             )}
           />
         </FormControl>

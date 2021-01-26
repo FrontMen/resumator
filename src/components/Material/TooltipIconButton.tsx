@@ -6,7 +6,12 @@ interface TooltipIconButtonProps extends IconButtonProps {
   active?: boolean;
 }
 
-export const TooltipIconButton: FunctionComponent<TooltipIconButtonProps> = ({ tooltip, active, children, ...props }) => {
+export const TooltipIconButton: FunctionComponent<TooltipIconButtonProps> = ({
+  tooltip,
+  active,
+  children,
+  ...props
+}) => {
   return (
     <Tooltip title={tooltip}>
       <IconButton
@@ -16,6 +21,6 @@ export const TooltipIconButton: FunctionComponent<TooltipIconButtonProps> = ({ t
       >
         {children}
       </IconButton>
-    </Tooltip>  
+    </Tooltip>
   );
 };
