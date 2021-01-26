@@ -11,3 +11,7 @@ steps:
   # Deploy
   - name: "gcr.io/fm-resume/firebase"
     args: ["deploy"]
+
+# Check if increasing the timeout to 30 min is enough for the pipeline
+# to let 'npm run build' finish in time 
+timeout: 1800s
