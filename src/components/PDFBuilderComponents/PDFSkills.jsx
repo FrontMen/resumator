@@ -51,6 +51,11 @@ const Li = styled.Text`
   font-size: 9px;
 `;
 
+const Span = styled.Text`
+  color: #0cc;
+  font-size: 9px;
+`;
+
 const Badge = styled.Image`
   width: 22%;
 `;
@@ -73,7 +78,9 @@ export function PDFSkills({ skills }) {
         return (
           <LiWrapper key={skill.name}>
             <LiDot />
-            <Li>{skill.name}</Li>
+            <Li>
+              {skill.name} <Span>{skill.years}</Span>
+            </Li>
           </LiWrapper>
         );
       })}

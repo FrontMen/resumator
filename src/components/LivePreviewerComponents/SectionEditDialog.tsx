@@ -37,7 +37,7 @@ export const SectionEditDialog = <T,>({
 
   return (
     <Dialog
-      fullWidth
+      fullWidth={true}
       maxWidth="sm"
       aria-labelledby="section-edit-dialog-title"
       aria-describedby="section-edit-dialog-content"

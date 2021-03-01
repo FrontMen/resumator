@@ -1,13 +1,15 @@
-import React, { FunctionComponent } from "react";
+import React, { useState, useEffect, FunctionComponent } from "react";
 import { Autocomplete } from "@material-ui/lab";
-import { makeStyles, TextField } from "@material-ui/core";
+import { makeStyles, Box, Button, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { skillsConstants } from "../../config/skills.constants";
+import { yearsConstants } from "../../config/years.constants";
 import FormSkillsSelectChip from "./FormSkillsSelectChip";
 
 interface Skill {
   name: string;
+  years?: string | null;
 }
 
 interface FormSkillsSelectPropsAutocomplete {
@@ -18,39 +20,66 @@ interface FormSkillsSelectPropsAutocomplete {
 
 const useStyles = makeStyles({
   autocomplete: {
-    // Make sure the input is below the chips.
-    "& .MuiAutocomplete-input": {
-      width: "inherit",
-    },
+    padding: "10px 0 0 0",
   },
   textField: {
-    "& input": {
-      marginTop: "4px",
-    },
+    marginTop: "4px",
+  },
+  addButton: {
+    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
+    color: "white",
+    height: 48,
+    margin: "20px 0 0 0",
+    width: "100%",
   },
 });
+
+const format = (s: string, num?: string | null): string => {
+  const n = Number(num);
+  let res = "";
+  if (!isNaN(n) && n > 0) {
+    res = `${num} ${s}`;
+    if (n > 1) {
+      res += "s";
+    }
+  }
+  return res;
+};
 
 const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({
   label,
   value,
   onChange,
 }) => {
+  const [name, setName] = useState<string | null>(null);
+  const [years, setYears] = useState<string | null>(null);
+
+  useEffect(() => {
+    filterOptions();
+  });
+
   const classes = useStyles();
+
   /**
    * Check if the provided option is currently included in the skills.
    */
-  const getOptionSelected = (option: string, skill: string) => option === skill;
+  function filterOptions() {
+    const selectedOptions = value.map((skill) => skill.name);
+    return skillsConstants.filter((skill) => !selectedOptions.includes(skill));
+  }
 
   /**
    * Handle adding or deleting a skill through the autocomplete input.
    */
-  const handleSkillChange = (
-    event: object,
-    inputValue: string[],
-    reason: string
-  ) => {
-    const skills = inputValue.map((name) => ({ name }));
-    onChange(skills);
+  const handleSkillChange = () => {
+    if (name) {
+      onChange([...value, { name: name, years: years }]);
+      setName(null);
+      setYears(null);
+    }
   };
 
   /**
@@ -71,43 +100,66 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Autocomplete
-        fullWidth
-        multiple
-        freeSolo
-        disableClearable
-        disableCloseOnSelect
-        id="skill-list-autocomplete"
-        size="small"
-        className={classes.autocomplete}
-        value={value.map((skill) => skill.name)}
-        options={skillsConstants}
-        onChange={handleSkillChange}
-        getOptionSelected={getOptionSelected}
-        renderInput={(params: object) => (
-          <TextField
-            variant="outlined"
-            placeholder="Add a library, framework, skill..."
-            className={value.length ? classes.textField : undefined}
-            label={label}
-            {...params}
-          />
-        )}
-        renderTags={(value: string[]) =>
-          value.map((skill, index) => (
-            // Add a chip for each skill.
+    <div>
+      <DndProvider backend={HTML5Backend}>
+        <Box display="flex" flexWrap="wrap" gridGap={8}>
+          {value.map((skill, index) => (
             <FormSkillsSelectChip
-              key={skill}
-              label={skill}
+              key={skill.name}
               index={index}
+              label={`${skill.name} ${format("year", skill.years)}`}
               onDrag={handleDrag}
               onDelete={handleSkillDelete}
             />
-          ))
-        }
+          ))}
+        </Box>
+      </DndProvider>
+      <Autocomplete
+        id="skill-autocomplete"
+        value={name}
+        onChange={(event: any, newValue: string | null) => {
+          setName(newValue);
+        }}
+        filterSelectedOptions={true}
+        options={filterOptions()}
+        className={classes.autocomplete}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Add a library, framework, skill..."
+            margin="normal"
+            variant="outlined"
+            className={value.length ? classes.textField : undefined}
+          />
+        )}
       />
-    </DndProvider>
+      <Autocomplete
+        id="year-autocomplete"
+        value={years}
+        onChange={(event: any, newValue: string | null) => {
+          setYears(newValue);
+        }}
+        filterSelectedOptions={true}
+        options={yearsConstants.map((option) => option)}
+        className={classes.autocomplete}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Optionally choose how many years"
+            margin="normal"
+            variant="outlined"
+            className={value.length ? classes.textField : undefined}
+          />
+        )}
+      />
+      <Button
+        onClick={handleSkillChange}
+        color="primary"
+        className={classes.addButton}
+      >
+        Add
+      </Button>
+    </div>
   );
 };
 
