@@ -87,7 +87,7 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
 
   return (
     <Chip
-      size="small"
+      size="medium"
       variant="outlined"
       color="secondary"
       className={classes.chip}

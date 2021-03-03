@@ -3,6 +3,7 @@ import styled from "@react-pdf/styled-components";
 import angularBadge from "../../assets/images/angularBadge.png";
 import nodeBadge from "../../assets/images/nodeBadge.png";
 import cssBadge from "../../assets/images/cssBadge.png";
+import pluralize from "../../lib/pluralize";
 
 const Root = styled.View`
   background-color: #181626;
@@ -51,6 +52,11 @@ const Li = styled.Text`
   font-size: 9px;
 `;
 
+const Span = styled.Text`
+  color: #0cc;
+  font-size: 9px;
+`;
+
 const Badge = styled.Image`
   width: 22%;
 `;
@@ -73,7 +79,12 @@ export function PDFSkills({ skills }) {
         return (
           <LiWrapper key={skill.name}>
             <LiDot />
-            <Li>{skill.name}</Li>
+            <Li>
+              {skill.name}
+              <Span>
+                {skill.years ? ` (${pluralize("year", skill.years)})` : ""}
+              </Span>
+            </Li>
           </LiWrapper>
         );
       })}

@@ -3,9 +3,11 @@ import { Box, Chip } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
+import pluralize from "../../lib/pluralize";
 
 export interface SkillModel {
   name: string;
+  years?: string;
 }
 interface SkillsProps {
   skills: SkillModel[];
@@ -28,7 +30,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
             key={skill.name}
             size="small"
             variant="outlined"
-            label={skill.name}
+            label={`${skill.name} ${pluralize("year", skill.years)} `}
             color="secondary"
           />
         ))}
