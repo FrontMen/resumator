@@ -3,6 +3,7 @@ import { Box, Chip } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
+import pluralize from "../../lib/pluralize";
 
 export interface SkillModel {
   name: string;
@@ -12,18 +13,6 @@ interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;
 }
-
-const format = (s: string, num?: string): string => {
-  const n = Number(num);
-  let res = "";
-  if (!isNaN(n)) {
-    res = `${num} ${s}`;
-    if (n > 1) {
-      res += "s";
-    }
-  }
-  return res;
-};
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -41,7 +30,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
             key={skill.name}
             size="small"
             variant="outlined"
-            label={`${skill.name} ${format("year", skill.years)} `}
+            label={`${skill.name} ${pluralize("year", skill.years)} `}
             color="secondary"
           />
         ))}

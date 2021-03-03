@@ -6,6 +6,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { skillsConstants } from "../../config/skills.constants";
 import { yearsConstants } from "../../config/years.constants";
 import FormSkillsSelectChip from "./FormSkillsSelectChip";
+import pluralize from "../../lib/pluralize";
+import { wrap } from "lodash";
 
 interface Skill {
   name: string;
@@ -19,13 +21,22 @@ interface FormSkillsSelectPropsAutocomplete {
 }
 
 const useStyles = makeStyles({
+  root: {
+    flexWrap: "wrap",
+    width: "100%",
+  },
+  box: {
+    "min-width": "100%",
+  },
   autocomplete: {
+    "min-width": "100%",
     padding: "10px 0 0 0",
   },
   textField: {
-    marginTop: "4px",
+    "margin-top": "4px",
   },
   addButton: {
+    "min-width": "100%",
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     border: 0,
     borderRadius: 3,
@@ -36,18 +47,6 @@ const useStyles = makeStyles({
     width: "100%",
   },
 });
-
-const format = (s: string, num?: string | null): string => {
-  const n = Number(num);
-  let res = "";
-  if (!isNaN(n) && n > 0) {
-    res = `${num} ${s}`;
-    if (n > 1) {
-      res += "s";
-    }
-  }
-  return res;
-};
 
 const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({
   label,
@@ -100,14 +99,14 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <DndProvider backend={HTML5Backend}>
-        <Box display="flex" flexWrap="wrap" gridGap={8}>
+        <Box display="flex" flexWrap="wrap" gridGap={8} className={classes.box}>
           {value.map((skill, index) => (
             <FormSkillsSelectChip
               key={skill.name}
               index={index}
-              label={`${skill.name} ${format("year", skill.years)}`}
+              label={`${skill.name} ${pluralize("year", skill.years)}`}
               onDrag={handleDrag}
               onDelete={handleSkillDelete}
             />
