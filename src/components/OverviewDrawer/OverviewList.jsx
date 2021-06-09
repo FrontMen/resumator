@@ -134,15 +134,15 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                   </NavLink>
                 </ListItemText>
                 <ListItemSecondaryAction className={classes.actions}>
-                  <IconButton edge="end" aria-label="delete">
-                    <TooltipIconButton
-                      color="inherit"
-                      tooltip={"Delete resume"}
-                      onClick={() => deleteResume(resume)}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </TooltipIconButton>
-                  </IconButton>
+                  <TooltipIconButton
+                    color="inherit"
+                    tooltip={"Delete resume"}
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => deleteResume(resume)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </TooltipIconButton>
                 </ListItemSecondaryAction>
               </ListItem>
             );
