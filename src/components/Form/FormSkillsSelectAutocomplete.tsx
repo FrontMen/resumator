@@ -14,6 +14,7 @@ interface FormSkillsSelectPropsAutocomplete {
   label?: string;
   value: Skill[];
   onChange: (skills: Skill[]) => void;
+  options: string[];
 }
 
 const useStyles = makeStyles({
@@ -34,6 +35,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
   label,
   value,
   onChange,
+  options,
 }) => {
   const classes = useStyles();
   /**
@@ -82,7 +84,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
         size="small"
         className={classes.autocomplete}
         value={value.map((skill) => skill.name)}
-        options={skillsConstants}
+        options={options}
         onChange={handleSkillChange}
         getOptionSelected={getOptionSelected}
         renderInput={(params: object) => (

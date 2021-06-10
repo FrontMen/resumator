@@ -6,11 +6,13 @@ import FormSkillsSelectAutocomplete from "./FormSkillsSelectAutocomplete";
 interface FormSkillsSelectProps extends FormControlProps {
   name: string;
   label?: string;
+  options: string[];
 }
 
 export const FormSkillsSelect: FunctionComponent<FormSkillsSelectProps> = ({
   name,
   label,
+  options,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -25,6 +27,7 @@ export const FormSkillsSelect: FunctionComponent<FormSkillsSelectProps> = ({
           {...props}
           label={label}
           value={value}
+          options={options}
           onChange={onChange}
         />
       )}

@@ -17,12 +17,14 @@ interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
   onSubmit: (value: ExperienceModel[]) => void;
+  options: string[];
 }
 
 export const Experience: FunctionComponent<ExperienceProps> = ({
   type,
   experience,
   onSubmit,
+  options,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
@@ -100,7 +102,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
             <FormRichTextEditor name="description" label="Description" />
           </FormRow>
           <FormRow>
-            <FormSkillsSelect name="stackAndTechniques" label="Skills" />
+            <FormSkillsSelect name="stackAndTechniques" label="Skills" options={options}  />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>

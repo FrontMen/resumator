@@ -7,7 +7,6 @@ import { Card } from "@material-ui/core";
 
 const LivePreviewer = (props) => {
   const [data, loading, error] = useResume(props.match.params.id);
-  console.log("vlad personalia", data, loading, error);
 
   if (!props.match.params.id) {
     return (
