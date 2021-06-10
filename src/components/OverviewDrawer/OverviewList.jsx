@@ -90,6 +90,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
         .doc(resume.id)
         .delete()
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.error("Error removing document: ", error);
         });
     }

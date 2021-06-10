@@ -36,10 +36,6 @@ const Li = styled.Text`
   font-size: 9px;
 `;
 
-const Badge = styled.Image`
-  width: 22%;
-`;
-
 export function PDFSkills({ skills }) {
   if (!skills || !skills.length) {
     return null;

@@ -50,9 +50,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     }));
   };
 
-  const [val, isLoading, error] = useCollection(
-    firebase.firestore().collection("skills")
-  );
+  const [val] = useCollection(firebase.firestore().collection("skills"));
 
   useEffect(() => {
     if (val) {

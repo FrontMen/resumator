@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Search } from "@material-ui/icons";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { InputBase } from "@material-ui/core";
@@ -34,12 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const OverviewSearch = ({ handleSearch }) => {
   const classes = useStyles();
+  const [searchVal, setSearchVal] = useState("");
 
-  const delayedQuery = useCallback(
-    debounce((searchValue) => {
+  const debouncedSearch = useMemo(() => {
+    return debounce((searchValue) => {
       handleSearch(searchValue);
-    }, 100),
-    []
+    }, 500);
+  }, [handleSearch]);
+
+  const doSearch = useCallback(
+    (event) => {
+      setSearchVal(event.target.value);
+      debouncedSearch(event.target.value);
+    },
+    [debouncedSearch]
   );
 
   return (
@@ -50,12 +58,8 @@ export const OverviewSearch = ({ handleSearch }) => {
       <InputBase
         variant="outlined"
         className={classes.input}
-        onChange={(event) => {
-          event.persist();
-          const searchValue = event.target.value;
-
-          delayedQuery(searchValue);
-        }}
+        onChange={doSearch}
+        value={searchVal}
         placeholder="Search…"
       />
     </div>
