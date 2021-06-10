@@ -76,7 +76,6 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
       <Autocomplete
         fullWidth
         multiple
-        freeSolo
         disableClearable
         disableCloseOnSelect
         id="skill-list-autocomplete"
