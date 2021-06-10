@@ -9,7 +9,6 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton,
   makeStyles,
 } from "@material-ui/core/";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -74,7 +73,9 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   const [val, isLoading, error] = useCollection(query);
   const [resumeOverviewData, setResumeOverviewData] = React.useState([]);
   const hasFetchError = !isLoading && error;
-  const normalizedSearchTerms = searchTerms.map((s) => s.toLowerCase().trim());
+  const normalizedSearchTerms = []
+    .concat(searchTerms)
+    .map((s) => s.toLowerCase().trim());
   const resumes = React.useMemo(
     () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
@@ -156,7 +157,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   }
 
   if (searchTerms.length) {
-    const filteredResumes = resumes.filter(({ personalia, skills }) => {
+    const filteredResumes = resumes.filter(({ personalia }) => {
       if (personalia) {
         const personaliaValues = Object.values(personalia);
         const isInPersonalia = personaliaValues.some((value) => {
@@ -166,14 +167,6 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
         if (isInPersonalia) return true;
       }
 
-      if (skills) {
-        const skillsArray = Object.values(skills).map(({ name }) => name);
-        const isInSkills = skillsArray.some((skill) => {
-          const hasValue = twoWayFind(skill, normalizedSearchTerms);
-          return hasValue;
-        });
-        if (isInSkills) return true;
-      }
       return false;
     });
     refreshResumeData(resumeOverviewData, filteredResumes, setResumeOverviewData);

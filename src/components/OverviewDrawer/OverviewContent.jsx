@@ -14,10 +14,12 @@ export const OverviewContent = ({
   const { firebase, user } = useContext(FirebaseAppContext);
   const [searchTerms, setSearchTerms] = React.useState([]);
 
-  const handleSearch = (val) => {
+  const handleSearch = (val = []) => {
+    // val = val || [];
     setSearchTerms(val);
     // should pass the search upwards again, so I can pass searchTerms into component with React.clone in indexjsx of this module
   };
+
   return (
     <div className={rootClass}>
       <div className={actionClass}>

@@ -3,7 +3,6 @@ import { Autocomplete } from "@material-ui/lab";
 import { makeStyles, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { skillsConstants } from "../../config/skills.constants";
 import FormSkillsSelectChip from "./FormSkillsSelectChip";
 
 interface Skill {
