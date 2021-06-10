@@ -12,6 +12,7 @@ import { SideProjectModel } from "./SideProjectItem";
 import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
 import PDFPreviewModal from "./PDFPreviewModal";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 interface LivePreviewerTemplateProps {
   data: {
@@ -32,10 +33,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 }) => {
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [dataState, setDataState] = useState(data);
+  const [skillList, setSkillList] = useState<string[]>([]);
   const history = useHistory();
 
   const isCreatorPage = history.location.pathname.includes("creator");
-  const { firebase } = useContext(FirebaseAppContext);
+  const { firebase } = useContext(FirebaseAppContext) as any;
 
   const goTo = (path: string) => history.push(path);
 
@@ -47,6 +49,16 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       [sectionKey]: values,
     }));
   };
+
+  const [val, isLoading, error] = useCollection(
+    firebase.firestore().collection("skills")
+  );
+
+  useEffect(() => {
+    if (val) {
+      setSkillList(val.docs[0].data().skills);
+    }
+  }, [val]);
 
   useEffect(() => {
     let fullName = "";
@@ -120,11 +132,13 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
             type="Projects"
             experience={dataState.projects}
             onSubmit={(data) => onSubmitSection("projects", data)}
+            options={skillList}
           />
           <Experience
             type="Work Experience"
             experience={dataState.experience}
             onSubmit={(data) => onSubmitSection("experience", data)}
+            options={skillList}
           />
         </Box>
         {/* Right column */}
@@ -132,6 +146,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           <Skills
             skills={dataState.skills}
             onSubmit={(data) => onSubmitSection("skills", data)}
+            options={skillList}
           />
           <SideProjects
             type="Side projects"

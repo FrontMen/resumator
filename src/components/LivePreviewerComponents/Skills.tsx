@@ -4,8 +4,6 @@ import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 export interface SkillModel {
   name: string;
@@ -13,19 +11,15 @@ export interface SkillModel {
 interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;
+  options: string[];
 }
 
-export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
+export const Skills: FunctionComponent<SkillsProps> = ({
+  skills,
+  onSubmit,
+  options,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  const { firebase } = React.useContext(FirebaseAppContext) as any;
-
-  const [val, isLoading, error] = useCollection(
-    firebase.firestore().collection("resumes")
-  );
-  const skillList: string[] = React.useMemo(() => (val ? val.docs[0].data() : []), [
-    val,
-  ]);
 
   return (
     <Section
@@ -34,10 +28,6 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
     >
-      <div>
-        {skillList.length &&
-          skillList.map((skillItem, index) => <span key={index}>{skillItem}</span>)}
-      </div>
       <Box display="flex" flexWrap="wrap" gridGap={8}>
         {skills.map((skill) => (
           <TruncateChip
@@ -62,7 +52,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       >
         <FormColumn>
           <FormRow>
-            <FormSkillsSelect name="skills" />
+            <FormSkillsSelect name="skills" options={options} />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>
