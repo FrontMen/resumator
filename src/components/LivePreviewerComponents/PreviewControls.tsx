@@ -33,7 +33,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           <SpacedButton
             color="primary"
             variant="contained"
-            onClick={() => history.push("/live/")}
+            onClick={() => history.push("/live")}
           >
             Go to overview
           </SpacedButton>

@@ -17,6 +17,7 @@ import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
 import OverviewDrawer from "./components/OverviewDrawer";
 import Creator from "./pages/Creator";
+import SkillsEditor from "./pages/SkillsEditor";
 
 import { UserRedirect } from "./pages/Overview/UserRedirect";
 
@@ -37,6 +38,7 @@ function App() {
             path="/live/:id"
             component={LivePreviewerWrapper}
           />
+          <Route type="private" exact path="/skills" component={SkillsPageWrapper} />
           <Route type="private" exact path="/creator" component={CreatorWrapper} />
           <Route
             type="private"
@@ -93,6 +95,12 @@ const HomePageWrapper = (props) => (
   <LoginLayout>
     <Home {...props} />
   </LoginLayout>
+);
+
+const SkillsPageWrapper = (props) => (
+  <MainLayout>
+    <SkillsEditor {...props} />
+  </MainLayout>
 );
 
 const LivePreviewerWrapper = (props) => {
