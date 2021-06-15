@@ -1,25 +1,19 @@
 import {
-  IconButton,
-  Card,
   makeStyles,
   Grid,
   Box,
-  Typography,
-  InputBase,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@material-ui/core";
-import { SpacedButton } from "../../components/Material";
-import DeleteIcon from "@material-ui/icons/Delete";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
+import { SkillHeader } from "./SkillHeader";
 
 const useStyles = makeStyles({
   input: {
@@ -40,14 +34,13 @@ const SkillsEditorList = () => {
   const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
   const [newSkill, setNewSkill] = useState<string>("");
-  const [hasError, setHasError] = useState<string>("");
+  const [hasError, setHasError] = useState<boolean>(false);
   const [docID, setDocId] = useState<string>("");
   const [editCount, setEditCount] = useState<number>(0);
   const [skillList, setSkillList] = useState<string[]>([]);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
   const { firebase } = useContext(FirebaseAppContext) as any;
   const [val] = useCollection(firebase.firestore().collection("skills"));
-  const history = useHistory();
 
   // Get skillList from API
   useEffect(() => {
@@ -110,11 +103,9 @@ const SkillsEditorList = () => {
         setEditCount(0);
       }
 
-      setHasError(hasError + "");
+      setHasError(false);
     } catch (error) {
-      setHasError(
-        hasError + "Something went wrong with saving the changes, try again! "
-      );
+      setHasError(true);
       // eslint-disable-next-line no-console
       console.error(error);
     }
@@ -178,76 +169,15 @@ const SkillsEditorList = () => {
   const renderList = () => {
     return (
       <>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <Box display="flex" justifyContent="flex-start" alignItems="center">
-              <Typography variant="h3" component="h1">
-                Skills
-              </Typography>
-              <SpacedButton
-                color="primary"
-                variant="contained"
-                marginLeft={2}
-                onClick={() => history.push("/live")}
-              >
-                Go to overview
-              </SpacedButton>
-            </Box>
-            {hasError && <p color={colors.orange}>Something went wrong</p>}
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Box
-              height="100%"
-              display="flex"
-              flexDirection={{ xs: "column", md: "row" }}
-              justifyContent={{ xs: "flex-start", md: "flex-end" }}
-              alignItems={{ xs: "flex-start", md: "center" }}
-            >
-              <Box
-                height="100%"
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                marginBottom={{ xs: 2, md: 0 }}
-              >
-                <form onSubmit={saveNewSkill}>
-                  <InputBase
-                    placeholder="Skill name"
-                    value={newSkill}
-                    className={classes.input}
-                    onChange={handleNewSkill}
-                  />
-                  <SpacedButton
-                    variant="contained"
-                    color="secondary"
-                    marginLeft={2}
-                    disabled={!newSkill}
-                    type="submit"
-                  >
-                    Add skill
-                  </SpacedButton>
-                </form>
-              </Box>
-              <Box
-                height="100%"
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-              >
-                <SpacedButton
-                  variant="contained"
-                  color="secondary"
-                  marginLeft={{ md: 2 }}
-                  disabled={!editCount}
-                  onClick={saveEditedSkills}
-                >
-                  Update skills ({editCount})
-                </SpacedButton>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-        <br />
+        <SkillHeader
+          hasError={hasError}
+          saveNewSkill={saveNewSkill}
+          newSkill={newSkill}
+          classes={classes}
+          handleNewSkill={handleNewSkill}
+          editCount={editCount}
+          saveEditedSkills={saveEditedSkills}
+        />
         <Grid container spacing={3}>
           {skillList.map((skill, index) => (
             <SkillItem
