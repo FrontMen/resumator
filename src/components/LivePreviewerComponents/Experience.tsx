@@ -102,7 +102,11 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
             <FormRichTextEditor name="description" label="Description" />
           </FormRow>
           <FormRow>
-            <FormSkillsSelect name="stackAndTechniques" label="Skills" options={options}  />
+            <FormSkillsSelect
+              name="stackAndTechniques"
+              label="Skills"
+              options={options}
+            />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>
