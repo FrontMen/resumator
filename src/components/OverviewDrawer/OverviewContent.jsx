@@ -31,13 +31,21 @@ export const OverviewContent = ({
         >
           Add Resume
         </SpacedButton>
+        <SpacedButton
+          href="/skills"
+          variant="contained"
+          color="primary"
+          marginLeft={2}
+          marginBottom={2}
+        >
+          Manage skills
+        </SpacedButton>
         {isMobile && (
           <SpacedButton
             onClick={toggleDrawer("left", false)}
             variant="contained"
             color="primary"
             marginBottom={2}
-            marginLeft={2}
           >
             Close
           </SpacedButton>
