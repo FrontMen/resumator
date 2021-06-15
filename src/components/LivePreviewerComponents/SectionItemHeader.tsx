@@ -14,6 +14,7 @@ import { TooltipIconButton } from "../Material";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { colors } from "../../config/theme";
+import { Confirmation } from "../Confirmation/Confirmation";
 
 export interface SectionItemHeaderProps {
   title: string;
@@ -73,27 +74,18 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
         </TooltipIconButton>
       </Box>
 
-      <Dialog
-        open={deleteConfirmationOpen}
-        onClose={() => setDeleteConfirmationOpen(false)}
-      >
-        <DialogTitle>Delete item</DialogTitle>
-        <DialogContent>
-          <Box>Are you sure you want to delete this item?</Box>
-          <Box>This action cannot be reversed.</Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteConfirmationOpen(false)}>No</Button>
-          <Button
-            onClick={() => {
-              setDeleteConfirmationOpen(false);
-              onDelete();
-            }}
-          >
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Confirmation
+        isOpen={deleteConfirmationOpen}
+        denyClick={() => setDeleteConfirmationOpen(false)}
+        confirmClick={() => {
+          setDeleteConfirmationOpen(false);
+          onDelete();
+        }}
+        title={"Delete item"}
+        message={`Are you sure you want to delete this item?
+          <br/>
+          This action cannot be reversed.`}
+      />
     </Box>
   );
 };

@@ -10,7 +10,7 @@ import {
 
 interface ConfirmationProps {
   isOpen: boolean;
-  onClose: () => any;
+  onClose?: () => any;
   title?: string;
   message?: string;
   denyText?: string;
@@ -21,24 +21,24 @@ interface ConfirmationProps {
 
 export const Confirmation: FunctionComponent<ConfirmationProps> = ({
   isOpen,
-  onClose,
-  title,
-  message,
+  onClose = () => null,
+  title = "Confirm action",
+  message = "This action cannot be reversed.",
   denyClick,
   confirmClick,
-  denyText,
-  confirmText,
+  denyText = "No",
+  confirmText = "Yes",
   ...props
 }) => {
   return (
     <Dialog open={isOpen !== false} onClose={onClose}>
-      <DialogTitle>{title || "Confirm action"}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <Box>{message || "This action cannot be reversed."}</Box>
+        <Box dangerouslySetInnerHTML={{ __html: message }} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={denyClick}>{denyText || "No"}</Button>
-        <Button onClick={confirmClick}>{denyText || "Yes"}</Button>
+        <Button onClick={denyClick}>{denyText}</Button>
+        <Button onClick={confirmClick}>{confirmText}</Button>
       </DialogActions>
     </Dialog>
   );

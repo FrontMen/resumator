@@ -16,6 +16,7 @@ import ReportProblemOutlinedIcon from "@material-ui/icons/ReportProblemOutlined"
 import { TooltipIconButton } from "../Material";
 import Tooltip from "@material-ui/core/Tooltip";
 import { colors } from "../../config/theme";
+import { Confirmation } from "../Confirmation/Confirmation";
 
 export const useSectionItemHeaderStyles = makeStyles({
   actions: {
@@ -72,6 +73,8 @@ function twoWayFind(value, arr) {
 export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   const [val, isLoading, error] = useCollection(query);
   const [resumeOverviewData, setResumeOverviewData] = React.useState([]);
+  const [openConfirmation, setOpenConfirmation] = React.useState(false);
+  const [resumeToDelete, setResumeToDelete] = React.useState(null);
   const hasFetchError = !isLoading && error;
   const normalizedSearchTerms = []
     .concat(searchTerms)
@@ -82,74 +85,95 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   );
   const classes = useSectionItemHeaderStyles();
 
-  const deleteResume = (resume) => {
-    if (resume && resume.id) {
-      firebase
-        .firestore()
-        .collection("resumes")
-        .doc(resume.id)
-        .delete()
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.error("Error removing document: ", error);
-        });
-    }
+  const deleteResume = () => {
+    if (!resumeToDelete.id) return;
+    firebase
+      .firestore()
+      .collection("resumes")
+      .doc(resumeToDelete.id)
+      .delete()
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("Error removing document: ", error);
+      });
   };
 
   const renderResume = () => {
     if (!resumeOverviewData.length) return;
     return (
-      <List dense={true} data-testid="overview-list">
-        {resumeOverviewData
-          .filter((resume) => resume.personalia && resume)
-          .map((resume) => {
-            const { id, personalia, isImport } = resume;
-            const { firstName, lastName, avatar } = personalia;
+      <>
+        <List dense={true} data-testid="overview-list">
+          {resumeOverviewData
+            .filter((resume) => resume.personalia && resume)
+            .map((resume) => {
+              const { id, personalia, isImport } = resume;
+              const { firstName, lastName, avatar } = personalia;
 
-            let name =
-              firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
+              let name =
+                firstName || lastName
+                  ? `${firstName} ${lastName}`
+                  : `No name - ${id}`;
 
-            return (
-              <ListItem key={id} classes={{ container: classes.container }}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText>
-                  <NavLink
-                    className={isImport ? classes.isImported : classes.link}
-                    activeClassName={classes.activeLink}
-                    to={`/live/${id}`}
-                  >
-                    {name}
-                    {isImport && (
-                      <>
-                        &nbsp;
-                        <Tooltip title="is imported">
-                          <ReportProblemOutlinedIcon
-                            className={classes.importedWarning}
-                          />
-                        </Tooltip>
-                      </>
-                    )}
-                  </NavLink>
-                </ListItemText>
-                <ListItemSecondaryAction className={classes.actions}>
-                  <TooltipIconButton
-                    color="inherit"
-                    tooltip={"Delete resume"}
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => deleteResume(resume)}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </TooltipIconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
-      </List>
+              return (
+                <ListItem key={id} classes={{ container: classes.container }}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText>
+                    <NavLink
+                      className={isImport ? classes.isImported : classes.link}
+                      activeClassName={classes.activeLink}
+                      to={`/live/${id}`}
+                    >
+                      {name}
+                      {isImport && (
+                        <>
+                          &nbsp;
+                          <Tooltip title="is imported">
+                            <ReportProblemOutlinedIcon
+                              className={classes.importedWarning}
+                            />
+                          </Tooltip>
+                        </>
+                      )}
+                    </NavLink>
+                  </ListItemText>
+                  <ListItemSecondaryAction className={classes.actions}>
+                    <TooltipIconButton
+                      color="inherit"
+                      tooltip={"Delete resume"}
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => {
+                        setOpenConfirmation(true);
+                        setResumeToDelete(resume);
+                      }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </TooltipIconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+        </List>
+
+        <Confirmation
+          isOpen={openConfirmation}
+          denyClick={() => setOpenConfirmation(false)}
+          confirmClick={() => {
+            setOpenConfirmation(false);
+            deleteResume();
+          }}
+          title={"Delete item"}
+          message={`Are you sure you want to delete this item?
+            <br/>
+            <strong>"${resumeToDelete?.personalia?.firstName} ${resumeToDelete?.personalia?.lastName} - ${resumeToDelete?.id}"</strong>
+            <br/><br/>
+            This action cannot be reversed.`}
+        />
+      </>
     );
   };
 

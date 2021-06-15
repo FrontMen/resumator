@@ -133,7 +133,6 @@ const SkillsEditorList = () => {
     return (
       <Confirmation
         isOpen={openConfirmation}
-        onClose={() => setOpenConfirmation(false)}
         denyClick={() => setOpenConfirmation(false)}
         confirmClick={() => {
           setOpenConfirmation(false);
