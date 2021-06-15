@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { colors } from "../../config/theme";
+import { SkillItem } from "./SkillItem";
 
 const useStyles = makeStyles({
   input: {
@@ -249,37 +250,17 @@ const SkillsEditorList = () => {
         <br />
         <Grid container spacing={3}>
           {skillList.map((skill, index) => (
-            <Grid item key={`${index}-${skill}`} xs={12} sm={6} md={4} lg={3}>
-              <Card elevation={3}>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  padding={2}
-                >
-                  <InputBase
-                    defaultValue={skill}
-                    onChange={(event: any) => {
-                      handleChangeSkill(index, event.target.value);
-                    }}
-                    placeholder="Skill"
-                    className={
-                      didChange(index) ? classes.inputEdited : classes.input
-                    }
-                  />
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => {
-                      setDeleteIndex(index);
-                      setOpenConfirmation(true);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
-              </Card>
-            </Grid>
+            <SkillItem
+              key={`${index}-${skill}`}
+              handleChangeSkill={(newValue: string) =>
+                handleChangeSkill(index, newValue)
+              }
+              didChange={didChange(index)}
+              setDeleteIndex={() => setDeleteIndex(index)}
+              setOpenConfirmation={() => setOpenConfirmation(true)}
+              skill={skill}
+              classes={classes}
+            />
           ))}
         </Grid>
         {renderConfirmation()}
