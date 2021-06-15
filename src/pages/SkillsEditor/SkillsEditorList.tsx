@@ -1,19 +1,11 @@
-import {
-  makeStyles,
-  Grid,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
+import { Confirmation } from "../../components/Confirmation/Confirmation";
 
 const useStyles = makeStyles({
   input: {
@@ -139,26 +131,16 @@ const SkillsEditorList = () => {
 
   const renderConfirmation = () => {
     return (
-      <Dialog
-        open={openConfirmation !== false}
+      <Confirmation
+        isOpen={openConfirmation}
         onClose={() => setOpenConfirmation(false)}
-      >
-        <DialogTitle>Delete item: &quot;{skillList[deleteIndex]}&quot;?</DialogTitle>
-        <DialogContent>
-          <Box>This action cannot be reversed.</Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenConfirmation(false)}>No</Button>
-          <Button
-            onClick={() => {
-              setOpenConfirmation(false);
-              deleteSkill(deleteIndex);
-            }}
-          >
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+        denyClick={() => setOpenConfirmation(false)}
+        confirmClick={() => {
+          setOpenConfirmation(false);
+          deleteSkill(deleteIndex);
+        }}
+        title={`Delete item: "${skillList[deleteIndex]}"?`}
+      />
     );
   };
 
