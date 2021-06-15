@@ -119,7 +119,8 @@ const SkillsEditorList = () => {
     }
   };
 
-  const saveNewSkill = (): void => {
+  const saveNewSkill = (event: any): void => {
+    event.preventDefault();
     if (skillList.includes(newSkill)) return;
     const newSkillList = [...skillList, newSkill];
     saveSkills(newSkillList);
@@ -208,21 +209,23 @@ const SkillsEditorList = () => {
                 alignItems="center"
                 marginBottom={{ xs: 2, md: 0 }}
               >
-                <InputBase
-                  placeholder="Skill name"
-                  value={newSkill}
-                  className={classes.input}
-                  onChange={handleNewSkill}
-                />
-                <SpacedButton
-                  variant="contained"
-                  color="secondary"
-                  marginLeft={2}
-                  disabled={!newSkill}
-                  onClick={saveNewSkill}
-                >
-                  Add skill
-                </SpacedButton>
+                <form onSubmit={saveNewSkill}>
+                  <InputBase
+                    placeholder="Skill name"
+                    value={newSkill}
+                    className={classes.input}
+                    onChange={handleNewSkill}
+                  />
+                  <SpacedButton
+                    variant="contained"
+                    color="secondary"
+                    marginLeft={2}
+                    disabled={!newSkill}
+                    type="submit"
+                  >
+                    Add skill
+                  </SpacedButton>
+                </form>
               </Box>
               <Box
                 height="100%"
