@@ -193,6 +193,18 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           <FormRow>
             <FormAvatarSelect name="avatar" label="Avatar" />
           </FormRow>
+          <FormRow>
+            <Typography>
+              Want to add your own avatar? Make a PR{" "}
+              <a
+                href="https://github.com/FrontMen/resumator/tree/develop/src/assets/images/avatars"
+                target="_blank"
+                rel="noreferrer"
+              >
+                here
+              </a>
+            </Typography>
+          </FormRow>
         </FormColumn>
       </SectionEditDialog>
     </Card>
